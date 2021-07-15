@@ -1,0 +1,7 @@
+{
+  "name": "jeeves",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "jeeves-application",
+  "workspaceFolder": "/home/user/app",
+  "initializeCommand": "./generate_env"
+}

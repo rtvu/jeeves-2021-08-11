@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  jeeves-application:
+    build:
+      context: .
+      args:
+        USER_ID: "$USER_ID"
+        GROUP_ID: "$GROUP_ID"
+    stdin_open: true
+    tty: true
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/home/user/app

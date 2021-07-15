@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIRECTORY=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+$SCRIPT_DIRECTORY/generate_env
+docker-compose --file "$SCRIPT_DIRECTORY/docker-compose.yml" up --detach
+docker attach jeeves_jeeves-application_1
+docker-compose --file "$SCRIPT_DIRECTORY/docker-compose.yml" down
