@@ -4,3 +4,5 @@ SCRIPT_DIRECTORY=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 echo "USER_ID=$(id -u)" > "$SCRIPT_DIRECTORY/.env"
 echo "GROUP_ID=$(id -g)" >> "$SCRIPT_DIRECTORY/.env"
+echo "POSTGRES_DEV_URL=postgres://postgres:postgres@jeeves-database:5432/jeeves_dev" >> "$SCRIPT_DIRECTORY/.env"
+echo "POSTGRES_TEST_URL=postgres://postgres:postgres@jeeves-database:5432/jeeves_test" >> "$SCRIPT_DIRECTORY/.env"

@@ -6,9 +6,26 @@ services:
       args:
         USER_ID: "$USER_ID"
         GROUP_ID: "$GROUP_ID"
+    environment:
+      POSTGRES_DEV_URL: "$POSTGRES_DEV_URL"
+      POSTGRES_TEST_URL: "$POSTGRES_TEST_URL"
     stdin_open: true
     tty: true
+    depends_on:
+      - jeeves-database
     ports:
       - "4000:4000"
     volumes:
       - .:/home/user/app
+  jeeves-database:
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - jeeves-database-volume:/var/lib/postgresql/data
+volumes:
+  jeeves-database-volume:

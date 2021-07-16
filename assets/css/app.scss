@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400&display=swap');
+
+@import "~bootstrap/scss/functions";
+
+// **********
+// "~bootstrap/scss/variables" modifications
+// **********
+
+// Overides before file will cascade changes throughout the file
+$primary: #212529;
+
+@import "~bootstrap/scss/variables";
+
+// Appending additonal values to default
+$font-family-sans-serif: join("Fira Sans", $font-family-sans-serif, $separator: comma);
+$font-family-monospace: join("Fira Mono", $font-family-monospace, $separator: comma);
+
+@import "~bootstrap/scss/bootstrap";
+
+// Alerts should not show when there are no children.
+.alert:empty {
+  display: none;
+}

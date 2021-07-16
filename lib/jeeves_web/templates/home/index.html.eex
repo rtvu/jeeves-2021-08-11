@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col">
+    <div class="bg-light p-5 rounded-lg mb-3 text-center">
+      <h1 class="h1 mb-5">Welcome to Jeeves</h1>
+    </div>
+  </div>
+</div>

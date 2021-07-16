@@ -3,5 +3,29 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "jeeves-application",
   "workspaceFolder": "/home/user/app",
-  "initializeCommand": "./generate_env"
+  "initializeCommand": "./generate_env",
+  "settings": {
+    "auto-close-tag.activationOnLanguage": [
+      "elixir",
+      "xml",
+      "ejs",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "plaintext",
+      "markdown",
+      "vue",
+      "HTML (EEx)",
+      "HTML (Eex)"
+    ],
+    "elixirLS.suggestSpecs": false,
+    "elixirLS.signatureAfterComplete": false,
+    "elixirLS.fetchDeps": false
+  },
+  "extensions": [
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "jakebecker.elixir-ls"
+  ]
 }
