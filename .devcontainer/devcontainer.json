@@ -19,11 +19,18 @@
       "HTML (EEx)",
       "HTML (Eex)"
     ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "elixirLS.suggestSpecs": false,
     "elixirLS.signatureAfterComplete": false,
-    "elixirLS.fetchDeps": false
+    "elixirLS.fetchDeps": false,
+    "prettier.requireConfig": true,
+    "[elixir]": {
+      "editor.defaultFormatter": null
+    }
   },
   "extensions": [
+    "esbenp.prettier-vscode",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
     "jakebecker.elixir-ls"
