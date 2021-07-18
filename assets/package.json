@@ -17,8 +17,9 @@
     "topbar": "^0.1.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
@@ -33,5 +34,8 @@
     "terser-webpack-plugin": "^2.3.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.2"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
