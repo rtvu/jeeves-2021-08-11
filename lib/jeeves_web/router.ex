@@ -14,5 +14,6 @@ defmodule JeevesWeb.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
+    get "/printmode-tools", PrintmodeToolsController, :index
   end
 end

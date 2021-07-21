@@ -19,6 +19,7 @@ module.exports = (env, options) => {
     entry: {
       css: "./js/css.js",
       home: glob.sync("./vendor/**/*.js").concat(["./js/home.js"]),
+      "printmode-tools": glob.sync("./vendor/**/*.js").concat(["./js/printmode-tools.js"]),
     },
     output: {
       filename: "[name].js",
