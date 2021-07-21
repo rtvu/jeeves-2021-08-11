@@ -3,10 +3,9 @@
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "prettier",
-    "prettier/react"
+    "plugin:jsx-a11y/recommended",
+    "prettier"
   ],
   "rules": {
     "react/prop-types": 0,
