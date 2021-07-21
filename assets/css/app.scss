@@ -13,16 +13,8 @@ $primary: #212529;
 @import "~bootstrap/scss/variables";
 
 // Appending additonal values to default
-$font-family-sans-serif: join(
-  "Fira Sans",
-  $font-family-sans-serif,
-  $separator: comma
-);
-$font-family-monospace: join(
-  "Fira Mono",
-  $font-family-monospace,
-  $separator: comma
-);
+$font-family-sans-serif: join("Fira Sans", $font-family-sans-serif, $separator: comma);
+$font-family-monospace: join("Fira Mono", $font-family-monospace, $separator: comma);
 
 @import "~bootstrap/scss/bootstrap";
 
