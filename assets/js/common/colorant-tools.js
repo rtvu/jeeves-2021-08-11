@@ -34,7 +34,7 @@ ColorantTools.invertColorantToColor = function (colorantToColor) {
   const colorToColorants = {};
   for (const colorant in colorantToColor) {
     const color = colorantToColor[colorant];
-    if (colorToColorants.hasOwnProperty(color)) {
+    if (Object.prototype.hasOwnProperty.call(colorToColorants, color)) {
       colorToColorants[color].push(colorant);
     } else {
       colorToColorants[color] = [colorant];
@@ -54,7 +54,7 @@ ColorantTools.mergeCustomColorantToColor = function (customColorantToColor) {
 
 ColorantTools.mergeCustomColorToColorants = function (customColorToColorants) {
   const customColorantToColor = ColorantTools.invertColorToColorants(customColorToColorants);
-  const mergedCustomColorantToColor = ColorantTools.mergeCustomColorantToColor(customColorToColorants);
+  const mergedCustomColorantToColor = ColorantTools.mergeCustomColorantToColor(customColorantToColor);
   return ColorantTools.invertColorantToColor(mergedCustomColorantToColor);
 };
 
