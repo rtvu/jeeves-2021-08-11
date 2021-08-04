@@ -1,4 +1,4 @@
-import DefineColorantsInput from "./DefineColorantsInput";
+import DefineCustomColorants from "./DefineCustomColorants";
 
 const DefineColorantsAccordion = () => {
   return (
@@ -17,8 +17,8 @@ const DefineColorantsAccordion = () => {
         <div id="customize-colorants-body-1" className="accordion-collapse collapse">
           <div className="accordion-body">
             <div className="row">
-              <div className="col-12 col-lg-6">
-                <DefineColorantsInput />
+              <div className="col-12 col-lg-6 mb-3 mb-lg-0">
+                <DefineCustomColorants />
               </div>
               <div className="col-12 col-lg-6"></div>
             </div>

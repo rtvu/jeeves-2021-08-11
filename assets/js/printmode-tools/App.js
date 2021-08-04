@@ -2,22 +2,26 @@ import { useEffect, useState } from "react";
 import ColorantTools from "../common/colorant-tools";
 import Context from "./Context";
 import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
+import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
 import DefineCarriageAccordion from "./DefineCarriageAccordion";
-import DefineColorantsAccordion from "./DefineColorantsAccordion";
+import DefineCustomColorantsAccordion from "./DefineCustomColorantsAccordion";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
   const [colorantToColor, setColorantToColor] = colorantToColorHook;
 
-  const customColorantsDefinitionsHook = useState([]);
-  const [customColorantsDefinitions] = customColorantsDefinitionsHook;
+  const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
+  const [customColorantsDefinitionString, setCustomColorantsDefinitionStringHook] = customColorantsDefinitionStringHook;
 
   const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
 
   useEffect(() => {
+    const customColorantsDefinition = JSON.parse(customColorantsDefinitionString);
     const customColorToColorants = {};
-    for (let i = 0; i < customColorantsDefinitions.length; i++) {
-      const [colorants, color] = customColorantsDefinitions[i];
+
+    for (let i = 0; i < customColorantsDefinition.components.length; i++) {
+      const { color, colorants } = customColorantsDefinition.components[i];
+
       customColorToColorants[color] = colorants;
     }
 
@@ -26,22 +30,16 @@ const App = () => {
     const newColorantToColor = ColorantTools.mergeCustomColorantToColor(customColorantToColor);
 
     setColorantToColor(newColorantToColor);
-  }, [customColorantsDefinitions, setColorantToColor]);
+  }, [customColorantsDefinitionString, setColorantToColor]);
 
   return (
-    <Context.Provider value={{ carriageDefinitionStringHook, colorantToColorHook, customColorantsDefinitionsHook }}>
+    <Context.Provider
+      value={{ carriageDefinitionStringHook, colorantToColorHook, customColorantsDefinitionStringHook }}
+    >
       <div>
         <h1 className="text-center mb-3">Printmode Tools</h1>
         <DefineCarriageAccordion />
-        <DefineColorantsAccordion />
-      </div>
-      <div className="row">
-        <div className="col">
-          <pre>{JSON.stringify(colorantToColor, undefined, 2)}</pre>
-        </div>
-        <div className="col">
-          <pre>{JSON.stringify(customColorantsDefinitions, undefined, 2)}</pre>
-        </div>
+        <DefineCustomColorantsAccordion />
       </div>
     </Context.Provider>
   );
