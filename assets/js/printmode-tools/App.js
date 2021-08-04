@@ -11,7 +11,7 @@ const App = () => {
   const [colorantToColor, setColorantToColor] = colorantToColorHook;
 
   const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
-  const [customColorantsDefinitionString, setCustomColorantsDefinitionStringHook] = customColorantsDefinitionStringHook;
+  const [customColorantsDefinitionString] = customColorantsDefinitionStringHook;
 
   const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
 

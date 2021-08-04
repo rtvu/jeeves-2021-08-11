@@ -1,4 +1,5 @@
 import DefineCustomColorants from "./DefineCustomColorants";
+import DefineCustomColorantsConsole from "./DefineCustomColorantsConsole";
 
 const DefineColorantsAccordion = () => {
   return (
@@ -20,7 +21,9 @@ const DefineColorantsAccordion = () => {
               <div className="col-12 col-lg-6 mb-3 mb-lg-0">
                 <DefineCustomColorants />
               </div>
-              <div className="col-12 col-lg-6"></div>
+              <div className="col-12 col-lg-6">
+                <DefineCustomColorantsConsole />
+              </div>
             </div>
           </div>
         </div>
