@@ -252,6 +252,40 @@ function toCustomColorants(customColorantsDefinitionString, idCounter = 0) {
   }
 }
 
+function formatCustomColorantsDefinitionString(customColorantsDefinitionString) {
+  const customColorantsDefinition = JSON.parse(customColorantsDefinitionString);
+
+  let result = "";
+
+  result += `{\n  "version": "${customColorantsDefinition.version}",\n`;
+
+  if (customColorantsDefinition.components.length === 0) {
+    result += `  "components": []\n`;
+  } else {
+    result += `  "components": [\n`;
+
+    for (let i = 0; i < customColorantsDefinition.components.length; i++) {
+      const color = JSON.stringify(customColorantsDefinition.components[i].color);
+      const colorants = JSON.stringify(customColorantsDefinition.components[i].colorants).replace(/,/g, ", ");
+      const component = `    {\n      "color": ${color},\n      "colorants": ${colorants}\n    }`;
+
+      result += component;
+
+      if (i !== customColorantsDefinition.components.length - 1) {
+        result += ",";
+      }
+
+      result += "\n";
+    }
+
+    result += "  ]\n";
+  }
+
+  result += "}";
+
+  return result;
+}
+
 export {
   versionIds,
   defaultCustomColorantsDefinitionString,
@@ -262,4 +296,5 @@ export {
   validateCustomColorants,
   toCustomColorantsDefinitionString,
   toCustomColorants,
+  formatCustomColorantsDefinitionString,
 };

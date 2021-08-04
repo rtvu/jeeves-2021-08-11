@@ -3,40 +3,6 @@ import ResizableTextarea from "../common/react-components/ResizableTextarea";
 import Context from "./Context";
 import * as Common from "./DefineCustomColorantsCommon";
 
-function formatCustomColorantsDefinitionString(customColorantsDefinitionString) {
-  const customColorantsDefinition = JSON.parse(customColorantsDefinitionString);
-
-  let result = "";
-
-  result += `{\n  "version": "${customColorantsDefinition.version}",\n`;
-
-  if (customColorantsDefinition.components.length === 0) {
-    result += `  "components": []\n`;
-  } else {
-    result += `  "components": [\n`;
-
-    for (let i = 0; i < customColorantsDefinition.components.length; i++) {
-      const color = JSON.stringify(customColorantsDefinition.components[i].color);
-      const colorants = JSON.stringify(customColorantsDefinition.components[i].colorants).replace(/,/g, ", ");
-      const component = `    {\n      "color": ${color},\n      "colorants": ${colorants}\n    }`;
-
-      result += component;
-
-      if (i !== customColorantsDefinition.components.length - 1) {
-        result += ",";
-      }
-
-      result += "\n";
-    }
-
-    result += "  ]\n";
-  }
-
-  result += "}";
-
-  return result;
-}
-
 const DefineCustomColorantsConsole = () => {
   const { customColorantsDefinitionStringHook } = useContext(Context);
 
@@ -49,7 +15,7 @@ const DefineCustomColorantsConsole = () => {
   if (referenceCustomColorantsDefinitionString !== customColorantsDefinitionString) {
     setReferenceCustomColorantsDefinitionString(customColorantsDefinitionString);
 
-    const newConsole = formatCustomColorantsDefinitionString(customColorantsDefinitionString);
+    const newConsole = Common.formatCustomColorantsDefinitionString(customColorantsDefinitionString);
 
     setConsole(newConsole);
   }

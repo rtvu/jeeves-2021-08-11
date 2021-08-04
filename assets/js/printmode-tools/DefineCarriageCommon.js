@@ -307,6 +307,43 @@ function toCarriage(carriageDefinitionString, colorantToColor, idCounter = 0) {
   }
 }
 
+function formatCarriageDefinitionString(carriageDefinitionString) {
+  const carriageDefinition = JSON.parse(carriageDefinitionString);
+
+  let result = "";
+
+  result += `{\n  "version": "${carriageDefinition.version}",\n`;
+  result += `  "title": "${carriageDefinition.title}",\n`;
+
+  if (carriageDefinition.components.length === 0) {
+    result += `  "components": []\n`;
+  } else {
+    result += `  "components": [\n`;
+
+    for (let i = 0; i < carriageDefinition.components.length; i++) {
+      const colorant = JSON.stringify(carriageDefinition.components[i].colorant);
+      const offset = JSON.stringify(carriageDefinition.components[i].offset);
+      const dieHeights = JSON.stringify(carriageDefinition.components[i].dieHeights).replace(/,/g, ", ");
+      const overlaps = JSON.stringify(carriageDefinition.components[i].overlaps).replace(/,/g, ", ");
+      const component = `    {\n      "colorant": ${colorant},\n      "offset": ${offset},\n      "dieHeights": ${dieHeights},\n      "overlaps": ${overlaps}\n    }`;
+
+      result += component;
+
+      if (i !== carriageDefinition.components.length - 1) {
+        result += ",";
+      }
+
+      result += "\n";
+    }
+
+    result += "  ]\n";
+  }
+
+  result += "}";
+
+  return result;
+}
+
 export {
   versionIds,
   defaultCarriageDefinitionString,
@@ -317,4 +354,5 @@ export {
   validateCarriage,
   toCarriageDefinitionString,
   toCarriage,
+  formatCarriageDefinitionString,
 };
