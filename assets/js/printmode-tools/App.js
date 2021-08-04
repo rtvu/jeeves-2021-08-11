@@ -8,10 +8,10 @@ import DefineCustomColorantsAccordion from "./DefineCustomColorantsAccordion";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
-  const [colorantToColor, setColorantToColor] = colorantToColorHook;
+  const [_colorantToColor, setColorantToColor] = colorantToColorHook;
 
   const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
-  const [customColorantsDefinitionString] = customColorantsDefinitionStringHook;
+  const [customColorantsDefinitionString, _setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
 
   const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
 

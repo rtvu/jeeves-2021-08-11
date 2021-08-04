@@ -34,9 +34,9 @@ function processCarriage(carriage) {
 const DefineCarriageChart = () => {
   const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
 
-  const [carriageDefinitionString] = carriageDefinitionStringHook;
+  const [carriageDefinitionString, _setCarriageDefinitionString] = carriageDefinitionStringHook;
 
-  const [colorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
   const carriage = toCarriage(carriageDefinitionString, colorantToColor);
 

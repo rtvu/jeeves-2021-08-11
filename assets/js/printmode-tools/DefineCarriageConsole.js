@@ -8,7 +8,7 @@ const DefineCarriageConsole = () => {
 
   const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
 
-  const [colorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
   const [referenceCarriageDefinitionString, setReferenceCarriageDefinitionString] = useState(null);
 

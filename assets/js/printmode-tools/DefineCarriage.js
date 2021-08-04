@@ -9,7 +9,7 @@ const DefineCarriage = () => {
 
   const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
 
-  const [colorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
   const [carriage, setCarriage] = useState(Common.defaultCarriage());
 
