@@ -1,4 +1,6 @@
-import DefineCarriageInput from "./DefineCarriageInput";
+import DefineCarriage from "./DefineCarriage";
+import DefineCarriageChart from "./DefineCarriageChart";
+import DefineCarriageConsole from "./DefineCarriageConsole";
 
 const DefineCarriageAccordion = () => {
   return (
@@ -16,11 +18,14 @@ const DefineCarriageAccordion = () => {
         </h2>
         <div id="customize-carriage-body-1" className="accordion-collapse collapse">
           <div className="accordion-body">
+            <DefineCarriageChart />
             <div className="row">
-              <div className="col-12 col-lg-6">
-                <DefineCarriageInput />
+              <div className="col-12 col-lg-6 mb-3 mb-lg-0">
+                <DefineCarriage />
               </div>
-              <div className="col-12 col-lg-6"></div>
+              <div className="col-12 col-lg-6">
+                <DefineCarriageConsole />
+              </div>
             </div>
           </div>
         </div>

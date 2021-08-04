@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ColorantTools from "../common/colorant-tools";
 import Context from "./Context";
+import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
 import DefineCarriageAccordion from "./DefineCarriageAccordion";
 import DefineColorantsAccordion from "./DefineColorantsAccordion";
 
@@ -11,7 +12,7 @@ const App = () => {
   const customColorantsDefinitionsHook = useState([]);
   const [customColorantsDefinitions] = customColorantsDefinitionsHook;
 
-  const carriageDefinitionStringHook = useState('{"version":"1.0","components":[]}');
+  const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
 
   useEffect(() => {
     const customColorToColorants = {};

@@ -16,6 +16,11 @@ import "phoenix_html";
 import React from "react";
 import ReactDOM from "react-dom";
 
+// Import react-chartjs-2 to configure defaults
+import { defaults } from "react-chartjs-2";
+defaults.font.family = "Fira Sans";
+defaults.font.size = 16;
+
 // Import local dependencies
 import App from "./printmode-tools/App";
 
