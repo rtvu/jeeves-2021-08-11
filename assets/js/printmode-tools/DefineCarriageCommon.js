@@ -1,4 +1,4 @@
-import { copyByJSON, isNonNegativeIntegerString } from "../common/utilities";
+import { isNonNegativeIntegerString } from "../common/utilities";
 
 function versionIds() {
   return ["1.0"];
@@ -64,10 +64,10 @@ function updateComponent(carriage, id, input, value) {
 function fromInputsToComponent(colorant = "", offset = "", dieHeights = "", overlaps = "") {
   const component = defaultComponent();
 
-  component.inputs.colorant = copyByJSON(colorant);
-  component.inputs.offset = copyByJSON(offset);
-  component.inputs.dieHeights = copyByJSON(dieHeights);
-  component.inputs.overlaps = copyByJSON(overlaps);
+  component.inputs.colorant = colorant;
+  component.inputs.offset = offset;
+  component.inputs.dieHeights = dieHeights;
+  component.inputs.overlaps = overlaps;
 
   return component;
 }
