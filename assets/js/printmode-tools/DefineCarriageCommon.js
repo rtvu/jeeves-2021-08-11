@@ -202,7 +202,7 @@ function validateColorantUniqueness(carriage) {
         const referenceId = store[colorant];
 
         component.validations.colorantUnique = false;
-        components[referenceId].validations.colorUnique = false;
+        components[referenceId].validations.colorantUnique = false;
       } else {
         store[colorant] = id;
       }

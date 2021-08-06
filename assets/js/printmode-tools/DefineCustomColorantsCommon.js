@@ -163,8 +163,8 @@ function validateColorantUniqueness(customColorants) {
       if (Object.prototype.hasOwnProperty.call(store, colorant)) {
         const referenceId = store[colorant];
 
-        customColorants[id].validations.colorantsUnique = false;
-        customColorants[referenceId].validations.colorantsUnique = false;
+        components[id].validations.colorantsUnique = false;
+        components[referenceId].validations.colorantsUnique = false;
       } else {
         store[colorant] = id;
       }
