@@ -8,7 +8,7 @@
     "prettier"
   ],
   "rules": {
-    "no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0
   },

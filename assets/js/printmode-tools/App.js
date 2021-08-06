@@ -3,17 +3,25 @@ import ColorantTools from "../common/colorant-tools";
 import Context from "./Context";
 import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
 import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
+import { defaultMasksetDefinitionString } from "./DefineMasksetCommon";
 import DefineCarriageAccordion from "./DefineCarriageAccordion";
 import DefineCustomColorantsAccordion from "./DefineCustomColorantsAccordion";
+import DefineMasksetAccordion from "./DefineMasksetAccordion";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
   const [_colorantToColor, setColorantToColor] = colorantToColorHook;
 
-  const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
-  const [customColorantsDefinitionString, _setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
+  const colorantToCarriageHook = useState(null);
+  const [_colorantToCarriage, setColorantToCarriage] = colorantToCarriageHook;
 
   const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
+  const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
+
+  const masksetDefinitionStringHook = useState(defaultMasksetDefinitionString());
+
+  const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
+  const [customColorantsDefinitionString, _setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
 
   useEffect(() => {
     const customColorantsDefinition = JSON.parse(customColorantsDefinitionString);
@@ -32,13 +40,33 @@ const App = () => {
     setColorantToColor(newColorantToColor);
   }, [customColorantsDefinitionString, setColorantToColor]);
 
+  useEffect(() => {
+    const carriageDefinition = JSON.parse(carriageDefinitionString);
+    const newColorantToCarriage = {};
+
+    for (let i = 0; i < carriageDefinition.components.length; i++) {
+      const { colorant, offset, dieHieghts, overlaps } = carriageDefinition.components[i];
+
+      newColorantToCarriage[colorant] = { offset, dieHieghts, overlaps };
+    }
+
+    setColorantToCarriage(newColorantToCarriage);
+  }, [carriageDefinitionString, setColorantToCarriage]);
+
   return (
     <Context.Provider
-      value={{ carriageDefinitionStringHook, colorantToColorHook, customColorantsDefinitionStringHook }}
+      value={{
+        carriageDefinitionStringHook,
+        colorantToCarriageHook,
+        colorantToColorHook,
+        customColorantsDefinitionStringHook,
+        masksetDefinitionStringHook,
+      }}
     >
       <div>
         <h1 className="text-center mb-3">Printmode Tools</h1>
         <DefineCarriageAccordion />
+        <DefineMasksetAccordion />
         <DefineCustomColorantsAccordion />
       </div>
     </Context.Provider>
