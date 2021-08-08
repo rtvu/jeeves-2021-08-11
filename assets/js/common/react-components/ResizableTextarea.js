@@ -7,18 +7,28 @@ const options = {
 };
 
 function updateHeight(element) {
-  element.style.height = "auto";
-  element.style.height = element.scrollHeight + "px";
+  if (element.style.height.includes("px")) {
+    let height = parseInt(element.style.height);
+
+    if (element.scrollHeight > height) {
+      element.style.height = element.scrollHeight + "px";
+    } else {
+      while (height > element.scrollHeight) {
+        element.style.height = element.scrollHeight - 1 + "px";
+        height = parseInt(element.style.height);
+      }
+    }
+  }
 }
 
 function onVisible(entries) {
   const [entry] = entries;
 
   if (entry.isIntersecting) {
-    const height = entry.target.style.height;
+    const element = entry.target;
 
-    if (height === "0px") {
-      updateHeight(entry.target);
+    if (element.style.height === "") {
+      element.style.height = element.scrollHeight + "px";
     }
   }
 }
