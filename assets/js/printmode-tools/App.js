@@ -4,9 +4,11 @@ import Context from "./Context";
 import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
 import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
 import { defaultMasksetDefinitionString } from "./DefineMasksetCommon";
+import ColorantDefinitions from "./ColorantDefinitions";
 import DefineCarriageAccordion from "./DefineCarriageAccordion";
 import DefineCustomColorantsAccordion from "./DefineCustomColorantsAccordion";
 import DefineMasksetAccordion from "./DefineMasksetAccordion";
+import Help from "./Help";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
@@ -16,7 +18,7 @@ const App = () => {
   const [_colorantToCarriage, setColorantToCarriage] = colorantToCarriageHook;
 
   const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
-  const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
+  const [carriageDefinitionString, _setCarriageDefinitionString] = carriageDefinitionStringHook;
 
   const masksetDefinitionStringHook = useState(defaultMasksetDefinitionString());
 
@@ -64,10 +66,12 @@ const App = () => {
       }}
     >
       <div>
+        <Help />
         <h1 className="text-center mb-3">Printmode Tools</h1>
         <DefineCarriageAccordion />
         <DefineMasksetAccordion />
         <DefineCustomColorantsAccordion />
+        <ColorantDefinitions />
       </div>
     </Context.Provider>
   );

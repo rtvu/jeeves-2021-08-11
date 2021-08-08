@@ -42,6 +42,18 @@ const ResizableTextarea = (props) => {
     updateHeight(ref.current);
   }, [ref, props.value]);
 
+  useEffect(() => {
+    const resizeHandler = () => {
+      updateHeight(ref.current);
+    };
+
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  }, [ref]);
+
   const onChange = (event) => {
     updateHeight(event.target);
     parentOnChange(event);
