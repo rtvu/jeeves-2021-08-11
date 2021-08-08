@@ -1,4 +1,5 @@
 import DefineMaskset from "./DefineMaskset";
+import DefineMasksetConsole from "./DefineMasksetConsole";
 
 const DefineMasksetAccordion = () => {
   return (
@@ -16,7 +17,10 @@ const DefineMasksetAccordion = () => {
         </h2>
         <div id="customize-maskset-body-1" className="accordion-collapse collapse">
           <div className="accordion-body">
-            <DefineMaskset />
+            <div className="mb-3">
+              <DefineMaskset />
+            </div>
+            <DefineMasksetConsole />
             {/* <DefineMasksetChart />
             <div className="row">
               <div className="col-12 col-lg-6 mb-3 mb-lg-0">

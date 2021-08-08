@@ -133,7 +133,7 @@ function fromInputsToComponent(inputs = {}) {
     }
   }
 
-  Object.assign(component, source);
+  Object.assign(component.inputs, source);
 
   return component;
 }
@@ -468,10 +468,10 @@ function formatMasksetDefinitionString(masksetDefinitionString) {
 
         let string = JSON.stringify(component[property]);
         if (property === "colorants") {
-          string = string["colorants"].replace(/,/g, ", ");
+          string = string.replace(/,/g, ", ");
         }
 
-        result += `      "${property}": "${string}"`;
+        result += `      "${property}": ${string}`;
         result += j !== formattedInputsProperties.length - 1 ? ",\n" : "\n";
       }
 

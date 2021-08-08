@@ -5,7 +5,6 @@ import Context from "./Context";
 import * as Common from "./DefineMasksetCommon";
 import { copyByJSON } from "../common/utilities";
 import Options from "../common/react-components/Options";
-import { prettyPrint } from "../common/jsx-tools";
 
 const selectStyle = {
   backgroundPosition: "right 0.25rem center",
@@ -319,7 +318,6 @@ const DefineMaskset = () => {
           Set
         </button>
       </div>
-      {prettyPrint("data", JSON.parse(newMasksetDefinitionString))}
     </div>
   );
 };
