@@ -37,7 +37,7 @@ const InkLimitsOptions = () => {
   return <Options values={values} descriptions={descriptions} />;
 };
 
-const DefineMaskset = () => {
+const DefineMaskset = ({ consoleCheckbox }) => {
   const { colorantToCarriageHook, colorantToColorHook, masksetDefinitionStringHook } = useContext(Context);
 
   const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
@@ -265,10 +265,14 @@ const DefineMaskset = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="row gx-2 mb-2">
+        <div className="col-2">Version</div>
+        <div className="col">Title{consoleCheckbox}</div>
+      </div>
+
       <div className="row gx-2 mb-3">
         <div className="col-2">
-          <div className="mb-2">Version</div>
           <select
             value="1.0"
             disabled
@@ -281,7 +285,6 @@ const DefineMaskset = () => {
           </select>
         </div>
         <div className="col">
-          <div className="mb-2">Title</div>
           <input type="text" className="form-control form-control-sm" value={maskset.title} onChange={updateTitle} />
         </div>
       </div>
@@ -302,9 +305,11 @@ const DefineMaskset = () => {
         <div className="col-1">Mods</div>
         <div className="col-1"></div>
       </div>
+
       <ReactSortable list={maskset.ids} setList={setIds} handle=".sortable-handle">
         {maskset.ids.map(Component)}
       </ReactSortable>
+
       <div>
         <button type="button" className="btn btn-primary btn-sm me-3" onClick={appendComponent}>
           Add
@@ -318,7 +323,7 @@ const DefineMaskset = () => {
           Set
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

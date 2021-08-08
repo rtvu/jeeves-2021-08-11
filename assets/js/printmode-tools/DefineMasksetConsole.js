@@ -46,7 +46,7 @@ const DefineMasksetConsole = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="mb-2">Console</div>
       <ResizableTextarea
         className="form-control mb-3 font-monospace"
@@ -62,7 +62,7 @@ const DefineMasksetConsole = () => {
       >
         Set
       </button>
-    </div>
+    </>
   );
 };
 
