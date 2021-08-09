@@ -1,6 +1,6 @@
 import { isNonNegativeIntegerString } from "../common/utilities";
 
-function versionIds() {
+function carriageVersions() {
   return ["1.0"];
 }
 
@@ -227,7 +227,7 @@ function isCarriageDefinitionValid(carriageDefinition) {
   if (
     !(
       Object.prototype.hasOwnProperty.call(carriageDefinition, "version") &&
-      versionIds().includes(carriageDefinition.version) &&
+      carriageVersions().includes(carriageDefinition.version) &&
       Object.prototype.hasOwnProperty.call(carriageDefinition, "title") &&
       typeof carriageDefinition.title === "string" &&
       Object.prototype.hasOwnProperty.call(carriageDefinition, "components") &&
@@ -345,7 +345,7 @@ function formatCarriageDefinitionString(carriageDefinitionString) {
 }
 
 export {
-  versionIds,
+  carriageVersions,
   defaultCarriageDefinitionString,
   defaultCarriage,
   appendComponent,

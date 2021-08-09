@@ -3,8 +3,21 @@ import { ReactSortable } from "react-sortablejs";
 import Context from "./Context";
 import * as Common from "./DefineCarriageCommon";
 import { copyByJSON } from "../common/utilities";
+import Options from "../common/react-components/Options";
 
-const DefineCarriage = () => {
+const selectStyle = {
+  backgroundPosition: "right 0.25rem center",
+  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M 0 5 l 4 6 4-6'/%3e%3c/svg%3e")`,
+};
+
+const VersionOptions = () => {
+  const values = Common.carriageVersions();
+  const descriptions = values;
+
+  return <Options values={values} descriptions={descriptions} />;
+};
+
+const DefineCarriage = ({ consoleCheckbox }) => {
   const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
 
   const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
@@ -172,9 +185,27 @@ const DefineCarriage = () => {
 
   return (
     <div>
-      <div className="mb-3">
-        <div className="mb-2">Title</div>
-        <input type="text" className="form-control form-control-sm" value={carriage.title} onChange={updateTitle} />
+      <div className="row gx-2 mb-2">
+        <div className="col-2">Version</div>
+        <div className="col">Title{consoleCheckbox}</div>
+      </div>
+
+      <div className="row gx-2 mb-3">
+        <div className="col-2">
+          <select
+            value="1.0"
+            disabled
+            className="form-select form-select-sm pe-3"
+            style={selectStyle}
+            // value={}
+            // onChange={}
+          >
+            <VersionOptions />
+          </select>
+        </div>
+        <div className="col">
+          <input type="text" className="form-control form-control-sm" value={carriage.title} onChange={updateTitle} />
+        </div>
       </div>
 
       <div className="row gx-2 mb-2">
