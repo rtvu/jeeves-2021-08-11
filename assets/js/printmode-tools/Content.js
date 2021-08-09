@@ -5,7 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 
 import CarriageContent from "./Carriage/CarriageContent";
 import ColorantsContent from "./ColorantsContent";
-import MasksetContent from "./MasksetContent";
+import MasksetContent from "./Maskset/MasksetContent";
 
 const tabKeys = {
   carriage: "carriage",

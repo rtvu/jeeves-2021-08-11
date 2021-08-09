@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import DefineMaskset from "./DefineMaskset";
-import DefineMasksetConsole from "./DefineMasksetConsole";
+import MasksetForm from "./MasksetForm";
+import MasksetConsole from "./MasksetConsole";
 
 const MasksetContent = () => {
   const [showConsole, setShowConsole] = useState(false);
@@ -22,14 +22,14 @@ const MasksetContent = () => {
   );
 
   return (
-    <>
+    <div className="my-3">
       <div className={`${showConsole ? "mb-3" : ""}`}>
-        <DefineMaskset consoleCheckbox={consoleCheckbox} />
+        <MasksetForm consoleCheckbox={consoleCheckbox} />
       </div>
       <div hidden={!showConsole}>
-        <DefineMasksetConsole />
+        <MasksetConsole />
       </div>
-    </>
+    </div>
   );
 };
 

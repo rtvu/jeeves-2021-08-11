@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import ColorantTools from "../common/colorant-tools";
+
+import ColorantDefinitions from "./ColorantDefinitions";
+import Content from "./Content";
 import Context from "./Context";
+import Help from "./Help";
+
 import { defaultCarriageDefinitionString } from "./Carriage/CarriageCommon";
 import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
-import { defaultMasksetDefinitionString } from "./DefineMasksetCommon";
-import ColorantDefinitions from "./ColorantDefinitions";
-import Help from "./Help";
-import Content from "./Content";
+import { defaultMasksetDefinitionString } from "./Maskset/MasksetCommon";
+
+import ColorantTools from "../common/colorant-tools";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);

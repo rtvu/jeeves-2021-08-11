@@ -1,10 +1,15 @@
 import { useContext, useState } from "react";
+
 import { OverlayTrigger, Popover } from "react-bootstrap";
+
 import { ReactSortable } from "react-sortablejs";
-import Context from "./Context";
-import * as Common from "./DefineMasksetCommon";
-import { copyByJSON } from "../common/utilities";
-import Options from "../common/react-components/Options";
+
+import * as Common from "./MasksetCommon";
+
+import Context from "../Context";
+
+import Options from "../../common/react-components/Options";
+import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
   backgroundPosition: "right 0.25rem center",
@@ -37,7 +42,7 @@ const InkLimitsOptions = () => {
   return <Options values={values} descriptions={descriptions} />;
 };
 
-const DefineMaskset = ({ consoleCheckbox }) => {
+const MasksetForm = ({ consoleCheckbox }) => {
   const { colorantToCarriageHook, colorantToColorHook, masksetDefinitionStringHook } = useContext(Context);
 
   const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
@@ -327,4 +332,4 @@ const DefineMaskset = ({ consoleCheckbox }) => {
   );
 };
 
-export default DefineMaskset;
+export default MasksetForm;

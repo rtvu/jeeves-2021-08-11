@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
-import ResizableTextarea from "../common/react-components/ResizableTextarea";
-import Context from "./Context";
-import * as Common from "./DefineMasksetCommon";
 
-const DefineMasksetConsole = () => {
+import * as Common from "./MasksetCommon";
+
+import Context from "../Context";
+
+import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+
+const MasksetConsole = () => {
   const { colorantToCarriageHook, colorantToColorHook, masksetDefinitionStringHook } = useContext(Context);
 
   const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
@@ -66,4 +69,4 @@ const DefineMasksetConsole = () => {
   );
 };
 
-export default DefineMasksetConsole;
+export default MasksetConsole;

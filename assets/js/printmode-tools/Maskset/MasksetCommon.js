@@ -1,4 +1,4 @@
-import { isIntegerString } from "../common/utilities";
+import { isIntegerString } from "../../common/utilities";
 
 const inputsProperties = [
   "display",
