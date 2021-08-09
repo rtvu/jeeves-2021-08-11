@@ -43,10 +43,6 @@ const DefineCarriageConsole = () => {
     }
   };
 
-  window.changeState = (string) => {
-    setConsole(string);
-  };
-
   return (
     <>
       <div className="mb-2">Console</div>
