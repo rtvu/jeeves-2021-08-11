@@ -6,7 +6,7 @@ import Context from "./Context";
 import Help from "./Help";
 
 import { defaultCarriageDefinitionString } from "./Carriage/CarriageCommon";
-import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
+import { defaultCustomColorantsDefinitionString } from "./Colors/ColorsCommon";
 import { defaultMasksetDefinitionString } from "./Maskset/MasksetCommon";
 
 import ColorantTools from "../common/colorant-tools";

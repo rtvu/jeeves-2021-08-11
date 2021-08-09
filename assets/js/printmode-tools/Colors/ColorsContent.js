@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import DefineCustomColorants from "./DefineCustomColorants";
-import DefineCustomColorantsConsole from "./DefineCustomColorantsConsole";
+import ColorsConsole from "./ColorsConsole";
+import ColorsForm from "./ColorsForm";
 
-const CustomColorants = () => {
+const ColorsContent = () => {
   const [showConsole, setShowConsole] = useState(false);
 
   const consoleCheckbox = (
@@ -22,17 +22,17 @@ const CustomColorants = () => {
   );
 
   return (
-    <>
+    <div className="my-3">
       <div className="row">
         <div className={`col-12 ${showConsole ? "col-lg-6 mb-3 mb-lg-0" : ""}`}>
-          <DefineCustomColorants consoleCheckbox={consoleCheckbox} />
+          <ColorsForm consoleCheckbox={consoleCheckbox} />
         </div>
         <div hidden={!showConsole} className="col-12 col-lg-6">
-          <DefineCustomColorantsConsole />
+          <ColorsConsole />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default CustomColorants;
+export default ColorsContent;

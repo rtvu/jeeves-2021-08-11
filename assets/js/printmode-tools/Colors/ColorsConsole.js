@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
-import ResizableTextarea from "../common/react-components/ResizableTextarea";
-import Context from "./Context";
-import * as Common from "./DefineCustomColorantsCommon";
 
-const DefineCustomColorantsConsole = () => {
+import * as Common from "./ColorsCommon";
+
+import Context from "../Context";
+import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+
+const ColorsConsole = () => {
   const { customColorantsDefinitionStringHook } = useContext(Context);
 
   const [customColorantsDefinitionString, setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
@@ -62,4 +64,4 @@ const DefineCustomColorantsConsole = () => {
   );
 };
 
-export default DefineCustomColorantsConsole;
+export default ColorsConsole;

@@ -4,12 +4,12 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import CarriageContent from "./Carriage/CarriageContent";
-import ColorantsContent from "./ColorantsContent";
+import ColorsContent from "./Colors/ColorsContent";
 import MasksetContent from "./Maskset/MasksetContent";
 
 const tabKeys = {
   carriage: "carriage",
-  colorants: "colorants",
+  colors: "colors",
   maskset: "maskset",
 };
 
@@ -25,14 +25,14 @@ const Content = () => {
           }
 
           if (activeKey === tabKeys.maskset && event.key === "ArrowRight") {
-            return tabKeys.colorants;
+            return tabKeys.colors;
           }
 
           if (activeKey === tabKeys.maskset && event.key === "ArrowLeft") {
             return tabKeys.carriage;
           }
 
-          if (activeKey === tabKeys.colorants && event.key === "ArrowLeft") {
+          if (activeKey === tabKeys.colors && event.key === "ArrowLeft") {
             return tabKeys.maskset;
           }
 
@@ -56,8 +56,8 @@ const Content = () => {
       <Tab eventKey={tabKeys.maskset} title="Maskset">
         <MasksetContent />
       </Tab>
-      <Tab eventKey={tabKeys.colorants} title="Custom Colorants">
-        <ColorantsContent />
+      <Tab eventKey={tabKeys.colors} title="Colors">
+        <ColorsContent />
       </Tab>
     </Tabs>
   );

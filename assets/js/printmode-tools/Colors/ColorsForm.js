@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-import Context from "./Context";
-import * as Common from "./DefineCustomColorantsCommon";
-import { copyByJSON } from "../common/utilities";
-import Options from "../common/react-components/Options";
+
+import * as Common from "./ColorsCommon";
+
+import Context from "../Context";
+import Options from "../../common/react-components/Options";
+import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
   backgroundPosition: "right 0.25rem center",
@@ -17,7 +19,7 @@ const VersionOptions = () => {
   return <Options values={values} descriptions={descriptions} />;
 };
 
-const DefineCustomColorants = ({ consoleCheckbox }) => {
+const ColorsForm = ({ consoleCheckbox }) => {
   const { customColorantsDefinitionStringHook } = useContext(Context);
 
   const [customColorantsDefinitionString, setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
@@ -212,4 +214,4 @@ const DefineCustomColorants = ({ consoleCheckbox }) => {
   );
 };
 
-export default DefineCustomColorants;
+export default ColorsForm;
