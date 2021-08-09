@@ -34,13 +34,17 @@ const Help = () => {
           <div className="mb-1">Keyboard Shortcuts</div>
           <ul className="list-group">
             <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Help
+              Ctrl + Left/Right Arrow : Navigate Tabs
             </li>
             <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + Enter : Console
+              Ctrl + Shift + /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Help
+            </li>
+
+            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
+              Ctrl + Shift + Enter&nbsp;&nbsp;&nbsp;&nbsp;: Colorant Definitions
             </li>
             <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + Space : Colorant Definitions
+              Ctrl + Shift + Space&nbsp;&nbsp;&nbsp;&nbsp;: Main Console
             </li>
           </ul>
         </Modal.Body>
