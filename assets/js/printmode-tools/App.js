@@ -6,7 +6,7 @@ import Context from "./Context";
 import Help from "./Help";
 
 import { defaultCarriageDefinitionString } from "./Carriage/CarriageCommon";
-import { defaultCustomColorantsDefinitionString } from "./Colors/ColorsCommon";
+import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
 import { defaultMasksetDefinitionString } from "./Maskset/MasksetCommon";
 
 import ColorantTools from "../common/colorant-tools";
@@ -23,15 +23,15 @@ const App = () => {
 
   const masksetDefinitionStringHook = useState(defaultMasksetDefinitionString());
 
-  const customColorantsDefinitionStringHook = useState(defaultCustomColorantsDefinitionString());
-  const [customColorantsDefinitionString, _setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
+  const colorsetJsonHook = useState(defaultColorsetJson());
+  const [colorsetJson, _setColorsetJson] = colorsetJsonHook;
 
   useEffect(() => {
-    const customColorantsDefinition = JSON.parse(customColorantsDefinitionString);
+    const parsed = JSON.parse(colorsetJson);
     const customColorToColorants = {};
 
-    for (let i = 0; i < customColorantsDefinition.components.length; i++) {
-      const { color, colorants } = customColorantsDefinition.components[i];
+    for (let i = 0; i < parsed.components.length; i++) {
+      const { color, colorants } = parsed.components[i];
 
       customColorToColorants[color] = colorants;
     }
@@ -41,7 +41,7 @@ const App = () => {
     const newColorantToColor = ColorantTools.mergeCustomColorantToColor(customColorantToColor);
 
     setColorantToColor(newColorantToColor);
-  }, [customColorantsDefinitionString, setColorantToColor]);
+  }, [colorsetJson, setColorantToColor]);
 
   useEffect(() => {
     const carriageDefinition = JSON.parse(carriageDefinitionString);
@@ -62,7 +62,7 @@ const App = () => {
         carriageDefinitionStringHook,
         colorantToCarriageHook,
         colorantToColorHook,
-        customColorantsDefinitionStringHook,
+        colorsetJsonHook,
         masksetDefinitionStringHook,
       }}
     >

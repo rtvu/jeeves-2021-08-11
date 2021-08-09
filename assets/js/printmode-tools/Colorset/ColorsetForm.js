@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
-import * as Common from "./ColorsCommon";
+import * as Common from "./ColorsetCommon";
 
 import Context from "../Context";
 import Options from "../../common/react-components/Options";
@@ -13,96 +13,96 @@ const selectStyle = {
 };
 
 const VersionOptions = () => {
-  const values = Common.customColorantsVersions();
+  const values = Common.colorsetVersions();
   const descriptions = values;
 
   return <Options values={values} descriptions={descriptions} />;
 };
 
-const ColorsForm = ({ consoleCheckbox }) => {
-  const { customColorantsDefinitionStringHook } = useContext(Context);
+const ColorsetForm = ({ consoleCheckbox }) => {
+  const { colorsetJsonHook } = useContext(Context);
 
-  const [customColorantsDefinitionString, setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
+  const [colorsetJson, setColorsetJson] = colorsetJsonHook;
 
-  const [customColorants, setCustomColorants] = useState(Common.defaultCustomColorants());
+  const [colorset, setColorset] = useState(Common.defaultColorset());
 
   const setIds = (ids) => {
-    setCustomColorants((customColorants) => {
-      customColorants = copyByJSON(customColorants);
-      customColorants.ids = copyByJSON(ids);
-      return customColorants;
+    setColorset((colorset) => {
+      colorset = copyByJSON(colorset);
+      colorset.ids = copyByJSON(ids);
+      return colorset;
     });
   };
 
-  const newCustomColorantsDefinitionString = Common.toCustomColorantsDefinitionString(customColorants);
+  const newColorsetJson = Common.toColorsetJson(colorset);
 
-  const setNewCustomColorantsDefinitionString = () => {
-    setCustomColorantsDefinitionString(newCustomColorantsDefinitionString);
+  const setNewColorsetJson = () => {
+    setColorsetJson(newColorsetJson);
   };
 
-  const [referenceCustomColorantsDefinitionString, setReferenceCustomColorantsDefinitionString] = useState(null);
+  const [referenceColorsetJson, setReferenceColorsetJson] = useState(null);
 
-  if (referenceCustomColorantsDefinitionString !== customColorantsDefinitionString) {
-    setReferenceCustomColorantsDefinitionString(customColorantsDefinitionString);
+  if (referenceColorsetJson !== colorsetJson) {
+    setReferenceColorsetJson(colorsetJson);
 
-    setCustomColorants((customColorants) => {
-      const idCounter = customColorants.idCounter;
+    setColorset((colorset) => {
+      const idCounter = colorset.idCounter;
 
-      customColorants = Common.toCustomColorants(customColorantsDefinitionString, idCounter);
+      colorset = Common.toColorset(colorsetJson, idCounter);
 
-      return customColorants;
+      return colorset;
     });
   }
 
   const appendComponent = () => {
-    setCustomColorants((customColorants) => {
-      customColorants = copyByJSON(customColorants);
+    setColorset((colorset) => {
+      colorset = copyByJSON(colorset);
 
-      Common.appendComponent(customColorants);
-      Common.validateCustomColorants(customColorants);
+      Common.appendComponent(colorset);
+      Common.validateColorset(colorset);
 
-      return customColorants;
+      return colorset;
     });
   };
 
   const deleteComponent = (id) => {
     return () => {
-      setCustomColorants((customColorants) => {
-        customColorants = copyByJSON(customColorants);
+      setColorset((colorset) => {
+        colorset = copyByJSON(colorset);
 
-        Common.deleteComponent(customColorants, id);
-        Common.validateCustomColorants(customColorants);
+        Common.deleteComponent(colorset, id);
+        Common.validateColorset(colorset);
 
-        return customColorants;
+        return colorset;
       });
     };
   };
 
   const updateComponent = (id, input) => {
     return (event) => {
-      setCustomColorants((customColorants) => {
+      setColorset((colorset) => {
         const value = event.target.value;
 
-        customColorants = copyByJSON(customColorants);
+        colorset = copyByJSON(colorset);
 
-        Common.updateComponent(customColorants, id, input, value);
-        Common.validateCustomColorants(customColorants);
+        Common.updateComponent(colorset, id, input, value);
+        Common.validateColorset(colorset);
 
-        return customColorants;
+        return colorset;
       });
     };
   };
 
   const resetColor = (id) => {
     return () => {
-      setCustomColorants((customColorants) => {
-        customColorants = copyByJSON(customColorants);
+      setColorset((colorset) => {
+        colorset = copyByJSON(colorset);
 
-        customColorants.components[id].inputs.color = customColorants.components[id].formattedInputs.color;
+        colorset.components[id].inputs.color = colorset.components[id].formattedInputs.color;
 
-        Common.validateCustomColorants(customColorants);
+        Common.validateColorset(colorset);
 
-        return customColorants;
+        return colorset;
       });
     };
   };
@@ -116,7 +116,7 @@ const ColorsForm = ({ consoleCheckbox }) => {
   };
 
   const Component = ({ id: id }) => {
-    const component = customColorants.components[id];
+    const component = colorset.components[id];
     const colorValid = component.validations.colorValid;
     const colorUnique = component.validations.colorUnique;
     const colorantsValid = component.validations.colorantsValid;
@@ -193,8 +193,8 @@ const ColorsForm = ({ consoleCheckbox }) => {
         <div className="col-1"></div>
       </div>
 
-      <ReactSortable list={customColorants.ids} setList={setIds} handle=".sortable-handle">
-        {customColorants.ids.map(Component)}
+      <ReactSortable list={colorset.ids} setList={setIds} handle=".sortable-handle">
+        {colorset.ids.map(Component)}
       </ReactSortable>
 
       <div>
@@ -204,8 +204,8 @@ const ColorsForm = ({ consoleCheckbox }) => {
         <button
           type="button"
           className="btn btn-primary btn-sm me-3"
-          onClick={setNewCustomColorantsDefinitionString}
-          disabled={!customColorants.valid || newCustomColorantsDefinitionString === customColorantsDefinitionString}
+          onClick={setNewColorsetJson}
+          disabled={!colorset.valid || newColorsetJson === colorsetJson}
         >
           Set
         </button>
@@ -214,4 +214,4 @@ const ColorsForm = ({ consoleCheckbox }) => {
   );
 };
 
-export default ColorsForm;
+export default ColorsetForm;

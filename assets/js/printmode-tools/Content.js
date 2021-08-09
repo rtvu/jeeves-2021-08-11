@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import CarriageContent from "./Carriage/CarriageContent";
-import ColorsContent from "./Colors/ColorsContent";
+import ColorsetContent from "./Colorset/ColorsetContent";
 import MasksetContent from "./Maskset/MasksetContent";
 
 const tabKeys = {
@@ -57,7 +57,7 @@ const Content = () => {
         <MasksetContent />
       </Tab>
       <Tab eventKey={tabKeys.colors} title="Colors">
-        <ColorsContent />
+        <ColorsetContent />
       </Tab>
     </Tabs>
   );
