@@ -1,9 +1,13 @@
 import { useContext } from "react";
+
 import { Bar } from "react-chartjs-2";
-import Context from "./Context";
-import { toCarriage } from "./DefineCarriageCommon";
-import { canvasBackgroundColor } from "../common/chart-tools";
-import { hexToRGB } from "../common/utilities";
+
+import { toCarriage } from "./CarriageCommon";
+
+import Context from "../Context";
+
+import { canvasBackgroundColor } from "../../common/chart-tools";
+import { hexToRGB } from "../../common/utilities";
 
 function processCarriage(carriage) {
   const processed = {
@@ -31,7 +35,7 @@ function processCarriage(carriage) {
   return processed;
 }
 
-const DefineCarriageChart = () => {
+const CarriageChart = () => {
   const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
 
   const [carriageDefinitionString, _setCarriageDefinitionString] = carriageDefinitionStringHook;
@@ -89,7 +93,7 @@ const DefineCarriageChart = () => {
     }
   }
 
-  return <Bar className="p-3" data={data} options={options} plugins={plugins} />;
+  return <Bar className="px-3 pt-0 pb-3" data={data} options={options} plugins={plugins} />;
 };
 
-export default DefineCarriageChart;
+export default CarriageChart;

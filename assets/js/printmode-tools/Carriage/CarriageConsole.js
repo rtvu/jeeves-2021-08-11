@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
-import ResizableTextarea from "../common/react-components/ResizableTextarea";
-import Context from "./Context";
-import * as Common from "./DefineCarriageCommon";
 
-const DefineCarriageConsole = () => {
+import * as Common from "./CarriageCommon";
+
+import Context from "../Context";
+
+import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+
+const CarriageConsole = () => {
   const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
 
   const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
@@ -64,4 +67,4 @@ const DefineCarriageConsole = () => {
   );
 };
 
-export default DefineCarriageConsole;
+export default CarriageConsole;

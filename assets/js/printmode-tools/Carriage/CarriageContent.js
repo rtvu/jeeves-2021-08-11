@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import DefineCarriageChart from "./DefineCarriageChart";
-import DefineCarriage from "./DefineCarriage";
-import DefineCarriageConsole from "./DefineCarriageConsole";
+import CarriageChart from "./CarriageChart";
+import CarriageConsole from "./CarriageConsole";
+import CarriageForm from "./CarriageForm";
 
 const CarriageContent = () => {
   const [showConsole, setShowConsole] = useState(false);
@@ -23,17 +23,17 @@ const CarriageContent = () => {
   );
 
   return (
-    <>
-      <DefineCarriageChart />
+    <div className="my-3">
+      <CarriageChart />
       <div className="row">
         <div className={`col-12 ${showConsole ? "col-lg-6 mb-3 mb-lg-0" : ""}`}>
-          <DefineCarriage consoleCheckbox={consoleCheckbox} />
+          <CarriageForm consoleCheckbox={consoleCheckbox} />
         </div>
         <div hidden={!showConsole} className="col-12 col-lg-6">
-          <DefineCarriageConsole />
+          <CarriageConsole />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

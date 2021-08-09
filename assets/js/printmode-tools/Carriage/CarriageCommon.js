@@ -1,4 +1,4 @@
-import { isNonNegativeIntegerString } from "../common/utilities";
+import { isNonNegativeIntegerString } from "../../common/utilities";
 
 function carriageVersions() {
   return ["1.0"];

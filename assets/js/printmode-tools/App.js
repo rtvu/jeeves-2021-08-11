@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ColorantTools from "../common/colorant-tools";
 import Context from "./Context";
-import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
+import { defaultCarriageDefinitionString } from "./Carriage/CarriageCommon";
 import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
 import { defaultMasksetDefinitionString } from "./DefineMasksetCommon";
 import ColorantDefinitions from "./ColorantDefinitions";

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
-import CarriageContent from "./CarriageContent";
+import CarriageContent from "./Carriage/CarriageContent";
 import ColorantsContent from "./ColorantsContent";
 import MasksetContent from "./MasksetContent";
 
@@ -49,7 +49,7 @@ const Content = () => {
   }, []);
 
   return (
-    <Tabs id="content" activeKey={activeKey} onSelect={setActiveKey} className="mb-3">
+    <Tabs id="content" activeKey={activeKey} onSelect={setActiveKey}>
       <Tab eventKey={tabKeys.carriage} title="Carriage">
         <CarriageContent />
       </Tab>

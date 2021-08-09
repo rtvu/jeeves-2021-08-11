@@ -1,9 +1,13 @@
 import { useContext, useState } from "react";
+
 import { ReactSortable } from "react-sortablejs";
-import Context from "./Context";
-import * as Common from "./DefineCarriageCommon";
-import { copyByJSON } from "../common/utilities";
-import Options from "../common/react-components/Options";
+
+import * as Common from "./CarriageCommon";
+
+import Context from "../Context";
+
+import { copyByJSON } from "../../common/utilities";
+import Options from "../../common/react-components/Options";
 
 const selectStyle = {
   backgroundPosition: "right 0.25rem center",
@@ -17,7 +21,7 @@ const VersionOptions = () => {
   return <Options values={values} descriptions={descriptions} />;
 };
 
-const DefineCarriage = ({ consoleCheckbox }) => {
+const CarriageForm = ({ consoleCheckbox }) => {
   const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
 
   const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
@@ -238,4 +242,4 @@ const DefineCarriage = ({ consoleCheckbox }) => {
   );
 };
 
-export default DefineCarriage;
+export default CarriageForm;
