@@ -5,10 +5,8 @@ import { defaultCarriageDefinitionString } from "./DefineCarriageCommon";
 import { defaultCustomColorantsDefinitionString } from "./DefineCustomColorantsCommon";
 import { defaultMasksetDefinitionString } from "./DefineMasksetCommon";
 import ColorantDefinitions from "./ColorantDefinitions";
-import DefineCarriageAccordion from "./DefineCarriageAccordion";
-import DefineCustomColorantsAccordion from "./DefineCustomColorantsAccordion";
-import DefineMasksetAccordion from "./DefineMasksetAccordion";
 import Help from "./Help";
+import Content from "./Content";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
@@ -75,9 +73,8 @@ const App = () => {
         </div>
       </div>
 
-      <DefineCarriageAccordion />
-      <DefineMasksetAccordion />
-      <DefineCustomColorantsAccordion />
+      <Content />
+
       <ColorantDefinitions />
     </Context.Provider>
   );
