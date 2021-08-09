@@ -184,7 +184,7 @@ const DefineCarriage = ({ consoleCheckbox }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="row gx-2 mb-2">
         <div className="col-2">Version</div>
         <div className="col">Title{consoleCheckbox}</div>
@@ -234,7 +234,7 @@ const DefineCarriage = ({ consoleCheckbox }) => {
           Set
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

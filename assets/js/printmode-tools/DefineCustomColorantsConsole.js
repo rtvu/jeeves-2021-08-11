@@ -42,7 +42,7 @@ const DefineCustomColorantsConsole = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="mb-2">Console</div>
       <ResizableTextarea
         className="form-control mb-3 font-monospace"
@@ -58,7 +58,7 @@ const DefineCustomColorantsConsole = () => {
       >
         Set
       </button>
-    </div>
+    </>
   );
 };
 
