@@ -65,14 +65,20 @@ const App = () => {
         masksetDefinitionStringHook,
       }}
     >
-      <div>
-        <Help />
-        <h1 className="text-center mb-3">Printmode Tools</h1>
-        <DefineCarriageAccordion />
-        <DefineMasksetAccordion />
-        <DefineCustomColorantsAccordion />
-        <ColorantDefinitions />
+      <div className="row mb-3">
+        <div className="col-1"></div>
+        <div className="col">
+          <h1 className="text-center m-0">Printmode Tools</h1>
+        </div>
+        <div className="col-1">
+          <Help />
+        </div>
       </div>
+
+      <DefineCarriageAccordion />
+      <DefineMasksetAccordion />
+      <DefineCustomColorantsAccordion />
+      <ColorantDefinitions />
     </Context.Provider>
   );
 };

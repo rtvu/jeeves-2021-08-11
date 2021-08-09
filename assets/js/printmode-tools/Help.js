@@ -19,8 +19,8 @@ const Help = () => {
   }, []);
 
   return (
-    <div>
-      <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => setShowHelp(true)}>
+    <>
+      <button type="button" className="btn btn-sm btn-outline-secondary float-end" onClick={() => setShowHelp(true)}>
         ?
       </button>
 
@@ -45,7 +45,7 @@ const Help = () => {
           </ul>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
 
