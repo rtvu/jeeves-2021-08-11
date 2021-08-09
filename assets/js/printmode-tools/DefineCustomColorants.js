@@ -3,8 +3,21 @@ import { ReactSortable } from "react-sortablejs";
 import Context from "./Context";
 import * as Common from "./DefineCustomColorantsCommon";
 import { copyByJSON } from "../common/utilities";
+import Options from "../common/react-components/Options";
 
-const DefineCustomColorants = () => {
+const selectStyle = {
+  backgroundPosition: "right 0.25rem center",
+  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M 0 5 l 4 6 4-6'/%3e%3c/svg%3e")`,
+};
+
+const VersionOptions = () => {
+  const values = Common.customColorantsVersions();
+  const descriptions = values;
+
+  return <Options values={values} descriptions={descriptions} />;
+};
+
+const DefineCustomColorants = ({ consoleCheckbox }) => {
   const { customColorantsDefinitionStringHook } = useContext(Context);
 
   const [customColorantsDefinitionString, setCustomColorantsDefinitionString] = customColorantsDefinitionStringHook;
@@ -110,22 +123,24 @@ const DefineCustomColorants = () => {
     return (
       <div key={id} className="row gx-2 align-items-center mb-3">
         <div className="col-1 text-center sortable-handle">☰</div>
-        <div className="col input-group input-group-sm">
-          <input
-            type="color"
-            className={`form-control form-control-color ${colorUnique ? "" : "is-invalid"}`}
-            value={component.formattedInputs.color}
-            onChange={updateComponent(id, "color")}
-          />
-          <input
-            type="text"
-            className={`form-control font-monospace ${colorValid && colorUnique ? "" : "is-invalid text-danger"}`}
-            maxLength="7"
-            value={component.inputs.color}
-            onChange={updateComponent(id, "color")}
-            onBlur={resetColor(id)}
-            onKeyDown={escapeToResetColor(id)}
-          />
+        <div className="col-4">
+          <div className="input-group input-group-sm">
+            <input
+              type="color"
+              className={`form-control form-control-color ${colorUnique ? "" : "is-invalid"}`}
+              value={component.formattedInputs.color}
+              onChange={updateComponent(id, "color")}
+            />
+            <input
+              type="text"
+              className={`form-control font-monospace ${colorValid && colorUnique ? "" : "is-invalid text-danger"}`}
+              maxLength="7"
+              value={component.inputs.color}
+              onChange={updateComponent(id, "color")}
+              onBlur={resetColor(id)}
+              onKeyDown={escapeToResetColor(id)}
+            />
+          </div>
         </div>
         <div className="col">
           <input
@@ -147,10 +162,31 @@ const DefineCustomColorants = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="row gx-2 mb-2">
+        <div className="col-2">Version</div>
+        <div className="col">{consoleCheckbox}</div>
+      </div>
+
+      <div className="row gx-2 mb-3">
+        <div className="col-2">
+          <select
+            value="1.0"
+            disabled
+            className="form-select form-select-sm pe-3"
+            style={selectStyle}
+            // value={}
+            // onChange={}
+          >
+            <VersionOptions />
+          </select>
+        </div>
+        <div className="col"></div>
+      </div>
+
       <div className="row gx-2 mb-2">
         <div className="col-1"></div>
-        <div className="col">Color</div>
+        <div className="col-4">Color</div>
         <div className="col">Colorants</div>
         <div className="col-1"></div>
       </div>
@@ -172,7 +208,7 @@ const DefineCustomColorants = () => {
           Set
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

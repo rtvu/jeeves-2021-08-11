@@ -1,4 +1,4 @@
-function versionIds() {
+function customColorantsVersions() {
   return ["1.0"];
 }
 
@@ -185,7 +185,7 @@ function isCustomColorantsDefinitionValid(customColorantsDefinition) {
   if (
     !(
       Object.prototype.hasOwnProperty.call(customColorantsDefinition, "version") &&
-      versionIds().includes(customColorantsDefinition.version) &&
+      customColorantsVersions().includes(customColorantsDefinition.version) &&
       Object.prototype.hasOwnProperty.call(customColorantsDefinition, "components") &&
       Array.isArray(customColorantsDefinition.components)
     )
@@ -287,7 +287,7 @@ function formatCustomColorantsDefinitionString(customColorantsDefinitionString) 
 }
 
 export {
-  versionIds,
+  customColorantsVersions,
   defaultCustomColorantsDefinitionString,
   defaultCustomColorants,
   appendComponent,
