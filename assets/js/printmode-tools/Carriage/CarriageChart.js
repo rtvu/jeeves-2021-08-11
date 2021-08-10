@@ -89,7 +89,11 @@ const CarriageChart = () => {
     }
   }
 
-  return <Bar className="px-3 pt-0 pb-3" data={data} options={options} plugins={plugins} />;
+  return (
+    <div className="mx-auto" style={{ maxWidth: "1000px" }}>
+      <Bar className="px-3 pt-0 pb-3" data={data} options={options} plugins={plugins} />
+    </div>
+  );
 };
 
 export default CarriageChart;
