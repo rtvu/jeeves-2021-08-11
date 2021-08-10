@@ -1,11 +1,28 @@
 import { isNonNegativeIntegerString } from "../../common/utilities";
 
+const inputsProperties = ["colorant", "offset", "dieHeights", "overlaps"];
+
+const _formattedInputsProperties = ["colorant", "offset", "dieHeights", "overlaps"];
+
+const validationsProperties = [
+  "colorantValid",
+  "colorantUnique",
+  "offsetValid",
+  "dieHeightsValid",
+  "overlapsValid",
+  "dieHeightsToOverlapsValid",
+];
+
 function carriageVersions() {
   return ["1.0"];
 }
 
-function defaultCarriageDefinitionString() {
-  return '{"version":"1.0","title":"","components":[]}';
+function defaultCarriageVersion() {
+  return "1.0";
+}
+
+function defaultCarriageJson() {
+  return `{"version":"${defaultCarriageVersion()}","title":"","components":[]}`;
 }
 
 function defaultCarriage(idCounter = 0) {
@@ -15,7 +32,7 @@ function defaultCarriage(idCounter = 0) {
     components: {},
     title: "",
     valid: true,
-    version: "1.0",
+    version: defaultCarriageVersion(),
   };
 }
 
@@ -30,25 +47,25 @@ function defaultComponent() {
     formattedInputs: {
       colorant: null,
       offset: null,
-      dieHeights: [],
-      overlaps: [],
+      dieHeights: null,
+      overlaps: null,
     },
     validations: {
-      colorantValid: false,
-      colorantUnique: false,
-      offsetValid: false,
-      dieHeightsValid: false,
-      overlapsValid: true,
-      dieHeightsToOverlapsValid: false,
+      colorantValid: null,
+      colorantUnique: null,
+      offsetValid: null,
+      dieHeightsValid: null,
+      overlapsValid: null,
+      dieHeightsToOverlapsValid: null,
     },
   };
 }
 
-function appendComponent(carriage, colorant = "", offset = "", dieHeights = "", overlaps = "") {
+function appendComponent(carriage, inputs = {}) {
   const id = carriage.idCounter;
 
   carriage.ids.push({ id: id });
-  carriage.components[id] = fromInputsToComponent(colorant, offset, dieHeights, overlaps);
+  carriage.components[id] = fromInputsToComponent(inputs);
   carriage.idCounter += 1;
 }
 
@@ -61,13 +78,19 @@ function updateComponent(carriage, id, input, value) {
   carriage.components[id].inputs[input] = value;
 }
 
-function fromInputsToComponent(colorant = "", offset = "", dieHeights = "", overlaps = "") {
+function fromInputsToComponent(inputs = {}) {
   const component = defaultComponent();
+  const source = {};
 
-  component.inputs.colorant = colorant;
-  component.inputs.offset = offset;
-  component.inputs.dieHeights = dieHeights;
-  component.inputs.overlaps = overlaps;
+  for (let i = 0; i < inputsProperties.length; i++) {
+    const property = inputsProperties[i];
+
+    if (Object.prototype.hasOwnProperty.call(inputs, property)) {
+      source[property] = inputs[property];
+    }
+  }
+
+  Object.assign(component.inputs, source);
 
   return component;
 }
@@ -122,7 +145,7 @@ function validateCarriage(carriage, colorantToColor) {
   validateColorantUniqueness(carriage);
 
   carriage.valid = carriage.ids.every(({ id: id }) => {
-    return isComponentValid(carriage.components[id]);
+    return isValidComponent(carriage.components[id]);
   });
 }
 
@@ -212,50 +235,49 @@ function validateColorantUniqueness(carriage) {
   }
 }
 
-function isComponentValid(component) {
-  return (
-    component.validations.colorantValid &&
-    component.validations.colorantUnique &&
-    component.validations.offsetValid &&
-    component.validations.dieHeightsValid &&
-    component.validations.overlapsValid &&
-    component.validations.dieHeightsToOverlapsValid
-  );
+function isValidComponent(component) {
+  return validationsProperties.map((property) => component.validations[property]).every((x) => x);
 }
 
-function isCarriageDefinitionValid(carriageDefinition) {
-  if (
-    !(
-      Object.prototype.hasOwnProperty.call(carriageDefinition, "version") &&
-      carriageVersions().includes(carriageDefinition.version) &&
-      Object.prototype.hasOwnProperty.call(carriageDefinition, "title") &&
-      typeof carriageDefinition.title === "string" &&
-      Object.prototype.hasOwnProperty.call(carriageDefinition, "components") &&
-      Array.isArray(carriageDefinition.components)
-    )
-  ) {
-    return false;
-  }
-
-  for (let i = 0; i < carriageDefinition.components.length; i++) {
-    const component = carriageDefinition.components[i];
+function isValidCarriageJson(carriageJson) {
+  try {
+    const parsed = JSON.parse(carriageJson);
 
     if (
       !(
-        typeof component.colorant === "string" &&
-        Number.isInteger(component.offset) &&
-        Array.isArray(component.dieHeights) &&
-        Array.isArray(component.overlaps)
+        Object.prototype.hasOwnProperty.call(parsed, "version") &&
+        carriageVersions().includes(parsed.version) &&
+        Object.prototype.hasOwnProperty.call(parsed, "title") &&
+        typeof parsed.title === "string" &&
+        Object.prototype.hasOwnProperty.call(parsed, "components") &&
+        Array.isArray(parsed.components)
       )
     ) {
       return false;
     }
-  }
 
-  return true;
+    for (let i = 0; i < parsed.components.length; i++) {
+      const component = parsed.components[i];
+
+      if (
+        !(
+          typeof component.colorant === "string" &&
+          Number.isInteger(component.offset) &&
+          Array.isArray(component.dieHeights) &&
+          Array.isArray(component.overlaps)
+        )
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
-function toCarriageDefinitionString(carriage) {
+function toCarriageJson(carriage) {
   if (carriage.valid) {
     const version = carriage.version;
     const title = carriage.title.trim();
@@ -267,36 +289,35 @@ function toCarriageDefinitionString(carriage) {
       components.push(carriage.components[id].formattedInputs);
     }
 
-    const carriageDefinition = { version: version, title: title, components: components };
-    const carriageDefinitionString = JSON.stringify(carriageDefinition);
+    const carriageJson = JSON.stringify({ version: version, title: title, components: components });
 
-    return carriageDefinitionString;
+    return carriageJson;
   } else {
     return null;
   }
 }
 
-function toCarriage(carriageDefinitionString, colorantToColor, idCounter = 0) {
+function toCarriage(carriageJson, colorantToColor, idCounter = 0) {
   try {
-    const carriageDefinition = JSON.parse(carriageDefinitionString);
-
-    if (!isCarriageDefinitionValid(carriageDefinition)) {
+    if (!isValidCarriageJson(carriageJson)) {
       return null;
     }
 
+    const parsed = JSON.parse(carriageJson);
+
     const carriage = defaultCarriage(idCounter);
 
-    carriage.version = carriageDefinition.version;
-    carriage.title = carriageDefinition.title;
+    carriage.version = parsed.version;
+    carriage.title = parsed.title;
 
-    for (let i = 0; i < carriageDefinition.components.length; i++) {
-      const component = carriageDefinition.components[i];
+    for (let i = 0; i < parsed.components.length; i++) {
+      const component = parsed.components[i];
       const colorant = component.colorant;
       const offset = component.offset.toString();
       const dieHeights = component.dieHeights.join(", ");
       const overlaps = component.overlaps.join(", ");
 
-      appendComponent(carriage, colorant, offset, dieHeights, overlaps);
+      appendComponent(carriage, { colorant, offset, dieHeights, overlaps });
     }
 
     validateCarriage(carriage, colorantToColor);
@@ -307,29 +328,29 @@ function toCarriage(carriageDefinitionString, colorantToColor, idCounter = 0) {
   }
 }
 
-function formatCarriageDefinitionString(carriageDefinitionString) {
-  const carriageDefinition = JSON.parse(carriageDefinitionString);
+function formatCarriageJson(carriageJson) {
+  const parsed = JSON.parse(carriageJson);
 
   let result = "";
 
-  result += `{\n  "version": "${carriageDefinition.version}",\n`;
-  result += `  "title": "${carriageDefinition.title}",\n`;
+  result += `{\n  "version": "${parsed.version}",\n`;
+  result += `  "title": "${parsed.title}",\n`;
 
-  if (carriageDefinition.components.length === 0) {
+  if (parsed.components.length === 0) {
     result += `  "components": []\n`;
   } else {
     result += `  "components": [\n`;
 
-    for (let i = 0; i < carriageDefinition.components.length; i++) {
-      const colorant = JSON.stringify(carriageDefinition.components[i].colorant);
-      const offset = JSON.stringify(carriageDefinition.components[i].offset);
-      const dieHeights = JSON.stringify(carriageDefinition.components[i].dieHeights).replace(/,/g, ", ");
-      const overlaps = JSON.stringify(carriageDefinition.components[i].overlaps).replace(/,/g, ", ");
+    for (let i = 0; i < parsed.components.length; i++) {
+      const colorant = JSON.stringify(parsed.components[i].colorant);
+      const offset = JSON.stringify(parsed.components[i].offset);
+      const dieHeights = JSON.stringify(parsed.components[i].dieHeights).replace(/,/g, ", ");
+      const overlaps = JSON.stringify(parsed.components[i].overlaps).replace(/,/g, ", ");
       const component = `    {\n      "colorant": ${colorant},\n      "offset": ${offset},\n      "dieHeights": ${dieHeights},\n      "overlaps": ${overlaps}\n    }`;
 
       result += component;
 
-      if (i !== carriageDefinition.components.length - 1) {
+      if (i !== parsed.components.length - 1) {
         result += ",";
       }
 
@@ -346,13 +367,14 @@ function formatCarriageDefinitionString(carriageDefinitionString) {
 
 export {
   carriageVersions,
-  defaultCarriageDefinitionString,
+  defaultCarriageVersion,
+  defaultCarriageJson,
   defaultCarriage,
   appendComponent,
   deleteComponent,
   updateComponent,
   validateCarriage,
-  toCarriageDefinitionString,
+  toCarriageJson,
   toCarriage,
-  formatCarriageDefinitionString,
+  formatCarriageJson,
 };

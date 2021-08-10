@@ -3,24 +3,23 @@ import { useContext, useState } from "react";
 import * as Common from "./CarriageCommon";
 
 import Context from "../Context";
-
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
 
 const CarriageConsole = () => {
-  const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
+  const { carriageJsonHook, colorantToColorHook } = useContext(Context);
 
-  const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
+  const [carriageJson, setCarriageJson] = carriageJsonHook;
 
   const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
-  const [referenceCarriageDefinitionString, setReferenceCarriageDefinitionString] = useState(null);
+  const [referenceCarriageJson, setReferenceCarriageJson] = useState(null);
 
   const [console, setConsole] = useState("");
 
-  if (referenceCarriageDefinitionString !== carriageDefinitionString) {
-    setReferenceCarriageDefinitionString(carriageDefinitionString);
+  if (referenceCarriageJson !== carriageJson) {
+    setReferenceCarriageJson(carriageJson);
 
-    const newConsole = Common.formatCarriageDefinitionString(carriageDefinitionString);
+    const newConsole = Common.formatCarriageJson(carriageJson);
 
     setConsole(newConsole);
   }
@@ -35,14 +34,14 @@ const CarriageConsole = () => {
 
   const isValid = carriage !== null && carriage.valid;
 
-  let newCarriageDefinitionString = null;
+  let newCarriageJson = null;
   if (isValid) {
-    newCarriageDefinitionString = Common.toCarriageDefinitionString(carriage);
+    newCarriageJson = Common.toCarriageJson(carriage);
   }
 
-  const setNewCarriageDefinitionString = () => {
+  const setNewCarriageJson = () => {
     if (isValid) {
-      setCarriageDefinitionString(newCarriageDefinitionString);
+      setCarriageJson(newCarriageJson);
     }
   };
 
@@ -58,8 +57,8 @@ const CarriageConsole = () => {
       <button
         type="button"
         className="btn btn-primary btn-sm me-3"
-        onClick={setNewCarriageDefinitionString}
-        disabled={!isValid || newCarriageDefinitionString === carriageDefinitionString}
+        onClick={setNewCarriageJson}
+        disabled={!isValid || newCarriageJson === carriageJson}
       >
         Set
       </button>

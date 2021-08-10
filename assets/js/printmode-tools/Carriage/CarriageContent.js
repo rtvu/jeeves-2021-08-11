@@ -4,22 +4,17 @@ import CarriageChart from "./CarriageChart";
 import CarriageConsole from "./CarriageConsole";
 import CarriageForm from "./CarriageForm";
 
+import ConsoleCheckbox from "../ConsoleCheckbox";
+
 const CarriageContent = () => {
   const [showConsole, setShowConsole] = useState(false);
 
   const consoleCheckbox = (
-    <div className="form-check form-check-inline float-end me-0">
-      <input
-        type="checkbox"
-        className="form-check-input"
-        id="carriage-console-checkbox"
-        checked={showConsole}
-        onChange={() => setShowConsole((showConsole) => !showConsole)}
-      />
-      <label className="form-check-label" htmlFor="carriage-console-checkbox">
-        <small>Show Console</small>
-      </label>
-    </div>
+    <ConsoleCheckbox
+      id="carriage-console-checkbox"
+      checked={showConsole}
+      onChange={() => setShowConsole((showConsole) => !showConsole)}
+    />
   );
 
   return (

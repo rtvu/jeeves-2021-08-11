@@ -1,13 +1,11 @@
 import { useContext, useState } from "react";
-
 import { ReactSortable } from "react-sortablejs";
 
 import * as Common from "./CarriageCommon";
 
 import Context from "../Context";
-
-import { copyByJSON } from "../../common/utilities";
 import Options from "../../common/react-components/Options";
+import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
   backgroundPosition: "right 0.25rem center",
@@ -22,9 +20,9 @@ const VersionOptions = () => {
 };
 
 const CarriageForm = ({ consoleCheckbox }) => {
-  const { carriageDefinitionStringHook, colorantToColorHook } = useContext(Context);
+  const { carriageJsonHook, colorantToColorHook } = useContext(Context);
 
-  const [carriageDefinitionString, setCarriageDefinitionString] = carriageDefinitionStringHook;
+  const [carriageJson, setCarriageJson] = carriageJsonHook;
 
   const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
@@ -38,21 +36,21 @@ const CarriageForm = ({ consoleCheckbox }) => {
     });
   };
 
-  const newCarriageDefinitionString = Common.toCarriageDefinitionString(carriage);
+  const newCarriageJson = Common.toCarriageJson(carriage);
 
-  const setNewCarriageDefinitionString = () => {
-    setCarriageDefinitionString(newCarriageDefinitionString);
+  const setNewCarriageJson = () => {
+    setCarriageJson(newCarriageJson);
   };
 
-  const [referenceCarriageDefinitionString, setReferenceCarriageDefinitionString] = useState(null);
+  const [referenceCarriageJson, setReferenceCarriageJson] = useState(null);
 
-  if (referenceCarriageDefinitionString !== carriageDefinitionString) {
-    setReferenceCarriageDefinitionString(carriageDefinitionString);
+  if (referenceCarriageJson !== carriageJson) {
+    setReferenceCarriageJson(carriageJson);
 
     setCarriage((carriage) => {
       const idCounter = carriage.idCounter;
 
-      carriage = Common.toCarriage(carriageDefinitionString, colorantToColor, idCounter);
+      carriage = Common.toCarriage(carriageJson, colorantToColor, idCounter);
 
       return carriage;
     });
@@ -232,8 +230,8 @@ const CarriageForm = ({ consoleCheckbox }) => {
         <button
           type="button"
           className="btn btn-primary btn-sm me-3"
-          onClick={setNewCarriageDefinitionString}
-          disabled={!carriage.valid || newCarriageDefinitionString === carriageDefinitionString}
+          onClick={setNewCarriageJson}
+          disabled={!carriage.valid || newCarriageJson === carriageJson}
         >
           Set
         </button>

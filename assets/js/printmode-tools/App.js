@@ -5,7 +5,7 @@ import Content from "./Content";
 import Context from "./Context";
 import Help from "./Help";
 
-import { defaultCarriageDefinitionString } from "./Carriage/CarriageCommon";
+import { defaultCarriageJson } from "./Carriage/CarriageCommon";
 import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
 import { defaultMasksetDefinitionString } from "./Maskset/MasksetCommon";
 
@@ -18,8 +18,8 @@ const App = () => {
   const colorantToCarriageHook = useState(null);
   const [_colorantToCarriage, setColorantToCarriage] = colorantToCarriageHook;
 
-  const carriageDefinitionStringHook = useState(defaultCarriageDefinitionString());
-  const [carriageDefinitionString, _setCarriageDefinitionString] = carriageDefinitionStringHook;
+  const carriageJsonHook = useState(defaultCarriageJson());
+  const [carriageJson, _setCarriageJson] = carriageJsonHook;
 
   const masksetDefinitionStringHook = useState(defaultMasksetDefinitionString());
 
@@ -44,22 +44,22 @@ const App = () => {
   }, [colorsetJson, setColorantToColor]);
 
   useEffect(() => {
-    const carriageDefinition = JSON.parse(carriageDefinitionString);
+    const parsed = JSON.parse(carriageJson);
     const newColorantToCarriage = {};
 
-    for (let i = 0; i < carriageDefinition.components.length; i++) {
-      const { colorant, offset, dieHieghts, overlaps } = carriageDefinition.components[i];
+    for (let i = 0; i < parsed.components.length; i++) {
+      const { colorant, offset, dieHieghts, overlaps } = parsed.components[i];
 
       newColorantToCarriage[colorant] = { offset, dieHieghts, overlaps };
     }
 
     setColorantToCarriage(newColorantToCarriage);
-  }, [carriageDefinitionString, setColorantToCarriage]);
+  }, [carriageJson, setColorantToCarriage]);
 
   return (
     <Context.Provider
       value={{
-        carriageDefinitionStringHook,
+        carriageJsonHook,
         colorantToCarriageHook,
         colorantToColorHook,
         colorsetJsonHook,
