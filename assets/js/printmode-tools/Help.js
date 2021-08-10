@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
+import ResizableTextarea from "../common/react-components/ResizableTextarea";
+
+const shortcuts = [
+  ["Ctrl + Space", "Toggle Show Console"],
+  ["Ctrl + Left/Right Arrow", "Navigate Tabs"],
+  ["Ctrl + Shift + /", "Help"],
+  ["Ctrl + Shift + Enter", "Colorant Definitions"],
+  ["Ctrl + Shift + Space", "Main Console"],
+];
+
 const Help = () => {
   const [showHelp, setShowHelp] = useState(false);
 
@@ -18,12 +28,38 @@ const Help = () => {
     };
   }, []);
 
+  const ListItem = ([shortcut, description]) => {
+    return (
+      <li key={shortcut} className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
+        <div className="row gx-2">
+          <div className="col-12 col-sm-6 col-lg-4 mb-2 mb-sm-0">
+            <ResizableTextarea
+              className="form-control form-control-sm font-monospace"
+              rows="1"
+              disabled
+              value={shortcut}
+              style={{ backgroundColor: "#ffffff", resize: "none" }}
+            ></ResizableTextarea>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-8">
+            <ResizableTextarea
+              className="form-control form-control-sm font-monospace"
+              rows="1"
+              disabled
+              value={description}
+              style={{ backgroundColor: "#ffffff", resize: "none" }}
+            ></ResizableTextarea>
+          </div>
+        </div>
+      </li>
+    );
+  };
+
   return (
     <>
       <button type="button" className="btn btn-sm btn-outline-secondary float-end" onClick={() => setShowHelp(true)}>
         ?
       </button>
-
       <Modal show={showHelp} onHide={() => setShowHelp(false)} size="lg">
         <Modal.Header className="p-2" style={{ backgroundColor: "#f0f0f0" }}>
           <Modal.Title as="h5" className="text-center w-100">
@@ -32,24 +68,7 @@ const Help = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="mb-1">Keyboard Shortcuts</div>
-          <ul className="list-group">
-            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Space&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Toggle Show Console
-            </li>
-            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Left/Right Arrow : Navigate Tabs
-            </li>
-            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Help
-            </li>
-
-            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + Enter&nbsp;&nbsp;&nbsp;&nbsp;: Colorant Definitions
-            </li>
-            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
-              Ctrl + Shift + Space&nbsp;&nbsp;&nbsp;&nbsp;: Main Console
-            </li>
-          </ul>
+          <ul className="list-group">{shortcuts.map(ListItem)}</ul>
         </Modal.Body>
       </Modal>
     </>
