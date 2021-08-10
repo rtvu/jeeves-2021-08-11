@@ -34,6 +34,9 @@ const Help = () => {
           <div className="mb-1">Keyboard Shortcuts</div>
           <ul className="list-group">
             <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
+              Ctrl + Space&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Toggle Show Console
+            </li>
+            <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>
               Ctrl + Left/Right Arrow : Navigate Tabs
             </li>
             <li className="list-group-item font-monospace" style={{ fontSize: "0.875rem" }}>

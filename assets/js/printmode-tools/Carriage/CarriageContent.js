@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import CarriageChart from "./CarriageChart";
 import CarriageConsole from "./CarriageConsole";
 import CarriageForm from "./CarriageForm";
+import * as TabKeys from "../TabKeys";
 
 import ConsoleCheckbox from "../ConsoleCheckbox";
+import { ActiveTabKeyContext } from "../Context";
+
+const tabKeyStates = TabKeys.getStates();
 
 const CarriageContent = () => {
+  const [activeTabKey, _setActiveTabKey] = useContext(ActiveTabKeyContext);
+
   const [showConsole, setShowConsole] = useState(false);
+
+  useEffect(() => {
+    const keydownHandler = (event) => {
+      if (activeTabKey === tabKeyStates.carriage && event.ctrlKey && event.key === " ") {
+        setShowConsole((showConsole) => !showConsole);
+      }
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, [activeTabKey]);
 
   const consoleCheckbox = (
     <ConsoleCheckbox

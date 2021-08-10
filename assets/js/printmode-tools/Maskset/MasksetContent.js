@@ -1,12 +1,32 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import MasksetConsole from "./MasksetConsole";
 import MasksetForm from "./MasksetForm";
+import * as TabKeys from "../TabKeys";
 
 import ConsoleCheckbox from "../ConsoleCheckbox";
+import { ActiveTabKeyContext } from "../Context";
+
+const tabKeyStates = TabKeys.getStates();
 
 const MasksetContent = () => {
+  const [activeTabKey, _setActiveTabKey] = useContext(ActiveTabKeyContext);
+
   const [showConsole, setShowConsole] = useState(false);
+
+  useEffect(() => {
+    const keydownHandler = (event) => {
+      if (activeTabKey === tabKeyStates.maskset && event.ctrlKey && event.key === " ") {
+        setShowConsole((showConsole) => !showConsole);
+      }
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, [activeTabKey]);
 
   const consoleCheckbox = (
     <ConsoleCheckbox
