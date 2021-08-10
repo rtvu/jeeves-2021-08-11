@@ -7,7 +7,7 @@ import Help from "./Help";
 
 import { defaultCarriageJson } from "./Carriage/CarriageCommon";
 import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
-import { defaultMasksetDefinitionString } from "./Maskset/MasksetCommon";
+import { defaultMasksetJson } from "./Maskset/MasksetCommon";
 
 import ColorantTools from "../common/colorant-tools";
 
@@ -21,7 +21,7 @@ const App = () => {
   const carriageJsonHook = useState(defaultCarriageJson());
   const [carriageJson, _setCarriageJson] = carriageJsonHook;
 
-  const masksetDefinitionStringHook = useState(defaultMasksetDefinitionString());
+  const masksetJsonHook = useState(defaultMasksetJson());
 
   const colorsetJsonHook = useState(defaultColorsetJson());
   const [colorsetJson, _setColorsetJson] = colorsetJsonHook;
@@ -63,7 +63,7 @@ const App = () => {
         colorantToCarriageHook,
         colorantToColorHook,
         colorsetJsonHook,
-        masksetDefinitionStringHook,
+        masksetJsonHook,
       }}
     >
       <div className="row mb-3">

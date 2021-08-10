@@ -29,6 +29,19 @@ const formattedInputsProperties = [
   "offset",
 ];
 
+const validationsProperties = [
+  "displayValid",
+  "colorantsValid",
+  "colorantsUnique",
+  "inkLimitValid",
+  "rampsValid",
+  "specificationValid",
+  "showInterleaveValid",
+  "interleaveNozzlesValid",
+  "showWeaveValid",
+  "offsetValid",
+];
+
 function masksetVersions() {
   return ["1.0"];
 }
@@ -45,8 +58,8 @@ function defaultInkLimit() {
   return 3;
 }
 
-function defaultMasksetDefinitionString() {
-  return '{"version":"1.0","title":"","components":[]}';
+function defaultMasksetJson() {
+  return `{"version":"${defaultMasksetVersion()}","title":"","components":[]}`;
 }
 
 function defaultMaskset(idCounter = 0) {
@@ -242,7 +255,7 @@ function validateMaskset(maskset, colorantToColor, _colorantToCarriage) {
   validateColorantUniqueness(maskset);
 
   maskset.valid = maskset.ids.every(({ id: id }) => {
-    return isComponentValid(maskset.components[id]);
+    return isValidComponent(maskset.components[id]);
   });
 }
 
@@ -320,64 +333,58 @@ function validateColorantUniqueness(maskset) {
   }
 }
 
-function isComponentValid(component) {
-  return (
-    component.validations.displayValid &&
-    component.validations.colorantsValid &&
-    component.validations.colorantsUnique &&
-    component.validations.inkLimitValid &&
-    component.validations.rampsValid &&
-    component.validations.specificationValid &&
-    component.validations.showInterleaveValid &&
-    component.validations.interleaveNozzlesValid &&
-    component.validations.showWeaveValid &&
-    component.validations.offsetValid
-  );
+function isValidComponent(component) {
+  return validationsProperties.map((property) => component.validations[property]).every((x) => x);
 }
 
-function isMasksetDefinitionValid(masksetDefinition) {
-  if (
-    !(
-      Object.prototype.hasOwnProperty.call(masksetDefinition, "version") &&
-      masksetVersions().includes(masksetDefinition.version) &&
-      Object.prototype.hasOwnProperty.call(masksetDefinition, "title") &&
-      typeof masksetDefinition.title === "string" &&
-      Object.prototype.hasOwnProperty.call(masksetDefinition, "components") &&
-      Array.isArray(masksetDefinition.components)
-    )
-  ) {
-    return false;
-  }
-
-  for (let i = 0; i < masksetDefinition.components.length; i++) {
-    const component = masksetDefinition.components[i];
-
+function isValidMasksetJson(masksetJson) {
+  try {
+    const parsed = JSON.parse(masksetJson);
     if (
       !(
-        typeof component.display === "boolean" &&
-        Array.isArray(component.colorants) &&
-        Number.isInteger(component.inkLimit) &&
-        typeof component.ramps === "boolean" &&
-        Number.isInteger(component.height) &&
-        Number.isInteger(component.passes) &&
-        Number.isInteger(component.frontVoids) &&
-        Number.isInteger(component.backVoids) &&
-        Number.isInteger(component.pairings) &&
-        Number.isInteger(component.versions) &&
-        typeof component.showInterleave === "boolean" &&
-        Number.isInteger(component.interleaveNozzles) &&
-        typeof component.showWeave === "boolean" &&
-        Number.isInteger(component.offset)
+        Object.prototype.hasOwnProperty.call(parsed, "version") &&
+        masksetVersions().includes(parsed.version) &&
+        Object.prototype.hasOwnProperty.call(parsed, "title") &&
+        typeof parsed.title === "string" &&
+        Object.prototype.hasOwnProperty.call(parsed, "components") &&
+        Array.isArray(parsed.components)
       )
     ) {
       return false;
     }
-  }
 
-  return true;
+    for (let i = 0; i < parsed.components.length; i++) {
+      const component = parsed.components[i];
+
+      if (
+        !(
+          typeof component.display === "boolean" &&
+          Array.isArray(component.colorants) &&
+          Number.isInteger(component.inkLimit) &&
+          typeof component.ramps === "boolean" &&
+          Number.isInteger(component.height) &&
+          Number.isInteger(component.passes) &&
+          Number.isInteger(component.frontVoids) &&
+          Number.isInteger(component.backVoids) &&
+          Number.isInteger(component.pairings) &&
+          Number.isInteger(component.versions) &&
+          typeof component.showInterleave === "boolean" &&
+          Number.isInteger(component.interleaveNozzles) &&
+          typeof component.showWeave === "boolean" &&
+          Number.isInteger(component.offset)
+        )
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
-function toMasksetDefinitionString(maskset) {
+function toMasksetJson(maskset) {
   if (maskset.valid) {
     const version = maskset.version;
     const title = maskset.title.trim();
@@ -389,30 +396,29 @@ function toMasksetDefinitionString(maskset) {
       components.push(maskset.components[id].formattedInputs);
     }
 
-    const masksetDefinition = { version: version, title: title, components: components };
-    const masksetDefinitionString = JSON.stringify(masksetDefinition);
+    const masksetJson = JSON.stringify({ version: version, title: title, components: components });
 
-    return masksetDefinitionString;
+    return masksetJson;
   } else {
     return null;
   }
 }
 
-function toMaskset(masksetDefinitionString, colorantToColor, colorantToCarriage, idCounter = 0) {
+function toMaskset(masksetJson, colorantToColor, colorantToCarriage, idCounter = 0) {
   try {
-    const masksetDefinition = JSON.parse(masksetDefinitionString);
-
-    if (!isMasksetDefinitionValid(masksetDefinition)) {
+    if (!isValidMasksetJson(masksetJson)) {
       return null;
     }
 
+    const parsed = JSON.parse(masksetJson);
+
     const maskset = defaultMaskset(idCounter);
 
-    maskset.version = masksetDefinition.version;
-    maskset.title = masksetDefinition.title;
+    maskset.version = parsed.version;
+    maskset.title = parsed.title;
 
-    for (let i = 0; i < masksetDefinition.components.length; i++) {
-      const component = masksetDefinition.components[i];
+    for (let i = 0; i < parsed.components.length; i++) {
+      const component = parsed.components[i];
       const display = component.display ? "on" : "off";
       const colorants = component.colorants.join(", ");
       const inkLimit = component.inkLimit.toString();
@@ -445,21 +451,21 @@ function toMaskset(masksetDefinitionString, colorantToColor, colorantToCarriage,
   }
 }
 
-function formatMasksetDefinitionString(masksetDefinitionString) {
-  const masksetDefinition = JSON.parse(masksetDefinitionString);
+function formatMasksetJson(masksetJson) {
+  const parsed = JSON.parse(masksetJson);
 
   let result = "";
 
-  result += `{\n  "version": "${masksetDefinition.version}",\n`;
-  result += `  "title": "${masksetDefinition.title}",\n`;
+  result += `{\n  "version": "${parsed.version}",\n`;
+  result += `  "title": "${parsed.title}",\n`;
 
-  if (masksetDefinition.components.length === 0) {
+  if (parsed.components.length === 0) {
     result += `  "components": []\n`;
   } else {
     result += `  "components": [\n`;
 
-    for (let i = 0; i < masksetDefinition.components.length; i++) {
-      const component = masksetDefinition.components[i];
+    for (let i = 0; i < parsed.components.length; i++) {
+      const component = parsed.components[i];
 
       result += "    {\n";
 
@@ -476,7 +482,7 @@ function formatMasksetDefinitionString(masksetDefinitionString) {
       }
 
       result += "    }";
-      result += i !== masksetDefinition.components.length - 1 ? ",\n" : "\n";
+      result += i !== parsed.components.length - 1 ? ",\n" : "\n";
     }
 
     result += "  ]\n";
@@ -492,13 +498,13 @@ export {
   inkLimits,
   defaultMasksetVersion,
   defaultInkLimit,
-  defaultMasksetDefinitionString,
+  defaultMasksetJson,
   defaultMaskset,
   appendComponent,
   deleteComponent,
   updateComponent,
   validateMaskset,
-  toMasksetDefinitionString,
+  toMasksetJson,
   toMaskset,
-  formatMasksetDefinitionString,
+  formatMasksetJson,
 };

@@ -1,13 +1,10 @@
 import { useContext, useState } from "react";
-
 import { OverlayTrigger, Popover } from "react-bootstrap";
-
 import { ReactSortable } from "react-sortablejs";
 
 import * as Common from "./MasksetCommon";
 
 import Context from "../Context";
-
 import Options from "../../common/react-components/Options";
 import { copyByJSON } from "../../common/utilities";
 
@@ -43,13 +40,13 @@ const InkLimitsOptions = () => {
 };
 
 const MasksetForm = ({ consoleCheckbox }) => {
-  const { colorantToCarriageHook, colorantToColorHook, masksetDefinitionStringHook } = useContext(Context);
+  const { colorantToCarriageHook, colorantToColorHook, masksetJsonHook } = useContext(Context);
 
   const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
 
   const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
-  const [masksetDefinitionString, setMasksetDefinitionString] = masksetDefinitionStringHook;
+  const [masksetJson, setMasksetJson] = masksetJsonHook;
 
   const [maskset, setMaskset] = useState(Common.defaultMaskset());
 
@@ -62,21 +59,21 @@ const MasksetForm = ({ consoleCheckbox }) => {
     });
   };
 
-  const newMasksetDefinitionString = Common.toMasksetDefinitionString(maskset);
+  const newMasksetJson = Common.toMasksetJson(maskset);
 
-  const setNewMasksetDefinitionString = () => {
-    setMasksetDefinitionString(newMasksetDefinitionString);
+  const setNewMasksetJson = () => {
+    setMasksetJson(newMasksetJson);
   };
 
-  const [referenceMasksetDefinitionString, setReferenceMasksetDefinitionString] = useState(null);
+  const [referenceMasksetJson, setReferenceMasksetJson] = useState(null);
 
-  if (referenceMasksetDefinitionString !== masksetDefinitionString) {
-    setReferenceMasksetDefinitionString(masksetDefinitionString);
+  if (referenceMasksetJson !== masksetJson) {
+    setReferenceMasksetJson(masksetJson);
 
     setMaskset((maskset) => {
       const idCounter = maskset.idCounter;
 
-      maskset = Common.toMaskset(masksetDefinitionString, colorantToColor, colorantToCarriage, idCounter);
+      maskset = Common.toMaskset(masksetJson, colorantToColor, colorantToCarriage, idCounter);
 
       return maskset;
     });
@@ -322,8 +319,8 @@ const MasksetForm = ({ consoleCheckbox }) => {
         <button
           type="button"
           className="btn btn-primary btn-sm me-3"
-          onClick={setNewMasksetDefinitionString}
-          disabled={!maskset.valid || newMasksetDefinitionString === masksetDefinitionString}
+          onClick={setNewMasksetJson}
+          disabled={!maskset.valid || newMasksetJson === masksetJson}
         >
           Set
         </button>

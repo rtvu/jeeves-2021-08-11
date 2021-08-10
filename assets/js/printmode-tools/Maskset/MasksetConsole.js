@@ -3,26 +3,25 @@ import { useContext, useState } from "react";
 import * as Common from "./MasksetCommon";
 
 import Context from "../Context";
-
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
 
 const MasksetConsole = () => {
-  const { colorantToCarriageHook, colorantToColorHook, masksetDefinitionStringHook } = useContext(Context);
+  const { colorantToCarriageHook, colorantToColorHook, masksetJsonHook } = useContext(Context);
 
   const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
 
   const [colorantToColor, _setColorantToColor] = colorantToColorHook;
 
-  const [masksetDefinitionString, setMasksetDefinitionString] = masksetDefinitionStringHook;
+  const [masksetJson, setMasksetJson] = masksetJsonHook;
 
   const [console, setConsole] = useState("");
 
-  const [referenceMasksetDefinitionString, setReferenceMasksetDefinitionString] = useState(null);
+  const [referenceMasksetJson, setReferenceMasksetJson] = useState(null);
 
-  if (referenceMasksetDefinitionString !== masksetDefinitionString) {
-    setReferenceMasksetDefinitionString(masksetDefinitionString);
+  if (referenceMasksetJson !== masksetJson) {
+    setReferenceMasksetJson(masksetJson);
 
-    const newConsole = Common.formatMasksetDefinitionString(masksetDefinitionString);
+    const newConsole = Common.formatMasksetJson(masksetJson);
 
     setConsole(newConsole);
   }
@@ -37,14 +36,14 @@ const MasksetConsole = () => {
 
   const isValid = maskset !== null && maskset.valid;
 
-  let newMasksetDefinitionString = null;
+  let newMasksetJson = null;
   if (isValid) {
-    newMasksetDefinitionString = Common.toMasksetDefinitionString(maskset);
+    newMasksetJson = Common.toMasksetJson(maskset);
   }
 
-  const setNewMasksetDefinitionString = () => {
+  const setNewMasksetJson = () => {
     if (isValid) {
-      setMasksetDefinitionString(newMasksetDefinitionString);
+      setMasksetJson(newMasksetJson);
     }
   };
 
@@ -60,8 +59,8 @@ const MasksetConsole = () => {
       <button
         type="button"
         className="btn btn-primary btn-sm me-3"
-        onClick={setNewMasksetDefinitionString}
-        disabled={!isValid || newMasksetDefinitionString === masksetDefinitionString}
+        onClick={setNewMasksetJson}
+        disabled={!isValid || newMasksetJson === masksetJson}
       >
         Set
       </button>
