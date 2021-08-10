@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import Context from "./Context";
+
+import { ColorantToColorContext } from "./Context";
+
 import ColorantTools from "../common/colorant-tools";
 import ResizableTextarea from "../common/react-components/ResizableTextarea";
 
@@ -13,8 +15,7 @@ function toRegex(pattern, flags) {
 }
 
 const ColorantDefinitions = () => {
-  const { colorantToColorHook } = useContext(Context);
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
   const [colorToColorants, setColorToColorants] = useState([]);
 
@@ -35,7 +36,7 @@ const ColorantDefinitions = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (event.ctrlKey && event.shiftKey && event.key === " ") {
+      if (event.ctrlKey && event.shiftKey && event.key === "Enter") {
         setShowColorantsList(true);
       }
     };

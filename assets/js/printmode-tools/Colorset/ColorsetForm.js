@@ -3,7 +3,7 @@ import { ReactSortable } from "react-sortablejs";
 
 import * as Common from "./ColorsetCommon";
 
-import Context from "../Context";
+import { ColorsetJsonContext } from "../Context";
 import Options from "../../common/react-components/Options";
 import { copyByJSON } from "../../common/utilities";
 
@@ -20,9 +20,7 @@ const VersionOptions = () => {
 };
 
 const ColorsetForm = ({ consoleCheckbox }) => {
-  const { colorsetJsonHook } = useContext(Context);
-
-  const [colorsetJson, setColorsetJson] = colorsetJsonHook;
+  const [colorsetJson, setColorsetJson] = useContext(ColorsetJsonContext);
 
   const [colorset, setColorset] = useState(Common.defaultColorset());
 

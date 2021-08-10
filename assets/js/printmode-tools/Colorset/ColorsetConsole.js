@@ -2,13 +2,11 @@ import { useContext, useState } from "react";
 
 import * as Common from "./ColorsetCommon";
 
-import Context from "../Context";
+import { ColorsetJsonContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
 
 const ColorsetConsole = () => {
-  const { colorsetJsonHook } = useContext(Context);
-
-  const [colorsetJson, setColorsetJson] = colorsetJsonHook;
+  const [colorsetJson, setColorsetJson] = useContext(ColorsetJsonContext);
 
   const [referenceColorsetJson, setReferenceColorsetJson] = useState(null);
 

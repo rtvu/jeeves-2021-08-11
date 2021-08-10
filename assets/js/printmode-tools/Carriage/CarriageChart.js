@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 
 import { toCarriage } from "./CarriageCommon";
 
-import Context from "../Context";
+import { CarriageJsonContext, ColorantToColorContext } from "../Context";
 import { canvasBackgroundColor } from "../../common/chart-tools";
 import { hexToRGB } from "../../common/utilities";
 
@@ -34,11 +34,9 @@ function processCarriage(carriage) {
 }
 
 const CarriageChart = () => {
-  const { carriageJsonHook, colorantToColorHook } = useContext(Context);
+  const [carriageJson, _setCarriageJsonString] = useContext(CarriageJsonContext);
 
-  const [carriageJson, _setCarriageJsonString] = carriageJsonHook;
-
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
   const carriage = toCarriage(carriageJson, colorantToColor);
 

@@ -3,7 +3,7 @@ import { ReactSortable } from "react-sortablejs";
 
 import * as Common from "./CarriageCommon";
 
-import Context from "../Context";
+import { CarriageJsonContext, ColorantToColorContext } from "../Context";
 import Options from "../../common/react-components/Options";
 import { copyByJSON } from "../../common/utilities";
 
@@ -20,11 +20,9 @@ const VersionOptions = () => {
 };
 
 const CarriageForm = ({ consoleCheckbox }) => {
-  const { carriageJsonHook, colorantToColorHook } = useContext(Context);
+  const [carriageJson, setCarriageJson] = useContext(CarriageJsonContext);
 
-  const [carriageJson, setCarriageJson] = carriageJsonHook;
-
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
   const [carriage, setCarriage] = useState(Common.defaultCarriage());
 

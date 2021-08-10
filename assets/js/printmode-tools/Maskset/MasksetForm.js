@@ -4,7 +4,7 @@ import { ReactSortable } from "react-sortablejs";
 
 import * as Common from "./MasksetCommon";
 
-import Context from "../Context";
+import { ColorantToCarriageContext, ColorantToColorContext, MasksetJsonContext } from "../Context";
 import Options from "../../common/react-components/Options";
 import { copyByJSON } from "../../common/utilities";
 
@@ -40,13 +40,11 @@ const InkLimitsOptions = () => {
 };
 
 const MasksetForm = ({ consoleCheckbox }) => {
-  const { colorantToCarriageHook, colorantToColorHook, masksetJsonHook } = useContext(Context);
+  const [colorantToCarriage, _setColorantToCarriage] = useContext(ColorantToCarriageContext);
 
-  const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
-
-  const [masksetJson, setMasksetJson] = masksetJsonHook;
+  const [masksetJson, setMasksetJson] = useContext(MasksetJsonContext);
 
   const [maskset, setMaskset] = useState(Common.defaultMaskset());
 

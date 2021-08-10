@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import ColorantDefinitions from "./ColorantDefinitions";
 import Content from "./Content";
-import Context from "./Context";
+import { Context } from "./Context";
 import Help from "./Help";
 
 import { defaultCarriageJson } from "./Carriage/CarriageCommon";
@@ -57,14 +57,12 @@ const App = () => {
   }, [carriageJson, setColorantToCarriage]);
 
   return (
-    <Context.Provider
-      value={{
-        carriageJsonHook,
-        colorantToCarriageHook,
-        colorantToColorHook,
-        colorsetJsonHook,
-        masksetJsonHook,
-      }}
+    <Context
+      carriageJsonHook={carriageJsonHook}
+      colorantToCarriageHook={colorantToCarriageHook}
+      colorantToColorHook={colorantToColorHook}
+      colorsetJsonHook={colorsetJsonHook}
+      masksetJsonHook={masksetJsonHook}
     >
       <div className="row mb-3">
         <div className="col-1"></div>
@@ -79,7 +77,7 @@ const App = () => {
       <Content />
 
       <ColorantDefinitions />
-    </Context.Provider>
+    </Context>
   );
 };
 

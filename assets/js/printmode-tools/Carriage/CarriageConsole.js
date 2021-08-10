@@ -2,15 +2,13 @@ import { useContext, useState } from "react";
 
 import * as Common from "./CarriageCommon";
 
-import Context from "../Context";
+import { CarriageJsonContext, ColorantToColorContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
 
 const CarriageConsole = () => {
-  const { carriageJsonHook, colorantToColorHook } = useContext(Context);
+  const [carriageJson, setCarriageJson] = useContext(CarriageJsonContext);
 
-  const [carriageJson, setCarriageJson] = carriageJsonHook;
-
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
   const [referenceCarriageJson, setReferenceCarriageJson] = useState(null);
 

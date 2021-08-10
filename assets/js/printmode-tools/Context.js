@@ -1,5 +1,37 @@
 import { createContext } from "react";
 
-const Context = createContext();
+const CarriageJsonContext = createContext();
+const ColorsetJsonContext = createContext();
+const ColorantToCarriageContext = createContext();
+const ColorantToColorContext = createContext();
+const MasksetJsonContext = createContext();
 
-export default Context;
+const Context = ({
+  carriageJsonHook,
+  children,
+  colorsetJsonHook,
+  colorantToCarriageHook,
+  colorantToColorHook,
+  masksetJsonHook,
+}) => {
+  return (
+    <CarriageJsonContext.Provider value={carriageJsonHook}>
+      <ColorsetJsonContext.Provider value={colorsetJsonHook}>
+        <ColorantToCarriageContext.Provider value={colorantToCarriageHook}>
+          <ColorantToColorContext.Provider value={colorantToColorHook}>
+            <MasksetJsonContext.Provider value={masksetJsonHook}>{children}</MasksetJsonContext.Provider>
+          </ColorantToColorContext.Provider>
+        </ColorantToCarriageContext.Provider>
+      </ColorsetJsonContext.Provider>
+    </CarriageJsonContext.Provider>
+  );
+};
+
+export {
+  Context,
+  CarriageJsonContext,
+  ColorsetJsonContext,
+  MasksetJsonContext,
+  ColorantToCarriageContext,
+  ColorantToColorContext,
+};

@@ -2,17 +2,15 @@ import { useContext, useState } from "react";
 
 import * as Common from "./MasksetCommon";
 
-import Context from "../Context";
+import { ColorantToCarriageContext, ColorantToColorContext, MasksetJsonContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
 
 const MasksetConsole = () => {
-  const { colorantToCarriageHook, colorantToColorHook, masksetJsonHook } = useContext(Context);
+  const [colorantToCarriage, _setColorantToCarriage] = useContext(ColorantToCarriageContext);
 
-  const [colorantToCarriage, _setColorantToCarriage] = colorantToCarriageHook;
+  const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
-  const [colorantToColor, _setColorantToColor] = colorantToColorHook;
-
-  const [masksetJson, setMasksetJson] = masksetJsonHook;
+  const [masksetJson, setMasksetJson] = useContext(MasksetJsonContext);
 
   const [console, setConsole] = useState("");
 
