@@ -70,10 +70,10 @@ const ColorantDefinitions = () => {
     return (
       <li key={color} className="list-group-item">
         <div className="row gx-2">
-          <div className="col-1">
+          <div className="col-12 col-sm-1 mb-2 mb-sm-0">
             <input type="text" className="form-control form-control-sm" disabled style={{ backgroundColor: color }} />
           </div>
-          <div className="col-2">
+          <div className="col-12 col-sm-3 col-lg-2 mb-2 mb-sm-0">
             <input
               type="text"
               className="form-control form-control-sm font-monospace"
