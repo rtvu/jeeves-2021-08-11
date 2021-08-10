@@ -2,7 +2,7 @@ import { isNonNegativeIntegerString } from "../../common/utilities";
 
 const inputsProperties = ["colorant", "offset", "dieHeights", "overlaps"];
 
-const _formattedInputsProperties = ["colorant", "offset", "dieHeights", "overlaps"];
+const formattedInputsProperties = ["colorant", "offset", "dieHeights", "overlaps"];
 
 const validationsProperties = [
   "colorantValid",
@@ -342,19 +342,24 @@ function formatCarriageJson(carriageJson) {
     result += `  "components": [\n`;
 
     for (let i = 0; i < parsed.components.length; i++) {
-      const colorant = JSON.stringify(parsed.components[i].colorant);
-      const offset = JSON.stringify(parsed.components[i].offset);
-      const dieHeights = JSON.stringify(parsed.components[i].dieHeights).replace(/,/g, ", ");
-      const overlaps = JSON.stringify(parsed.components[i].overlaps).replace(/,/g, ", ");
-      const component = `    {\n      "colorant": ${colorant},\n      "offset": ${offset},\n      "dieHeights": ${dieHeights},\n      "overlaps": ${overlaps}\n    }`;
+      const component = parsed.components[i];
 
-      result += component;
+      result += "    {\n";
 
-      if (i !== parsed.components.length - 1) {
-        result += ",";
+      for (let j = 0; j < formattedInputsProperties.length; j++) {
+        const property = formattedInputsProperties[j];
+
+        let string = JSON.stringify(component[property]);
+        if (["dieHeights", "overlaps"].includes(property)) {
+          string = string.replace(/,/g, ", ");
+        }
+
+        result += `      "${property}": ${string}`;
+        result += j !== formattedInputsProperties.length - 1 ? ",\n" : "\n";
       }
 
-      result += "\n";
+      result += "    }";
+      result += i !== parsed.components.length - 1 ? ",\n" : "\n";
     }
 
     result += "  ]\n";

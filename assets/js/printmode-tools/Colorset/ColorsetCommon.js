@@ -1,6 +1,6 @@
 const inputsProperties = ["color", "colorants"];
 
-const _formattedInputsProperties = ["color", "colorants"];
+const formattedInputsProperties = ["color", "colorants"];
 
 const validationsProperties = ["colorValid", "colorUnique", "colorantsValid", "colorantsUnique"];
 
@@ -283,17 +283,24 @@ function formatColorsetJson(colorsetJson) {
     result += `  "components": [\n`;
 
     for (let i = 0; i < parsed.components.length; i++) {
-      const color = JSON.stringify(parsed.components[i].color);
-      const colorants = JSON.stringify(parsed.components[i].colorants).replace(/,/g, ", ");
-      const component = `    {\n      "color": ${color},\n      "colorants": ${colorants}\n    }`;
+      const component = parsed.components[i];
 
-      result += component;
+      result += "    {\n";
 
-      if (i !== parsed.components.length - 1) {
-        result += ",";
+      for (let j = 0; j < formattedInputsProperties.length; j++) {
+        const property = formattedInputsProperties[j];
+
+        let string = JSON.stringify(component[property]);
+        if (["colorants"].includes(property)) {
+          string = string.replace(/,/g, ", ");
+        }
+
+        result += `      "${property}": ${string}`;
+        result += j !== formattedInputsProperties.length - 1 ? ",\n" : "\n";
       }
 
-      result += "\n";
+      result += "    }";
+      result += i !== parsed.components.length - 1 ? ",\n" : "\n";
     }
 
     result += "  ]\n";

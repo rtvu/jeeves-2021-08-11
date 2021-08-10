@@ -473,7 +473,7 @@ function formatMasksetJson(masksetJson) {
         const property = formattedInputsProperties[j];
 
         let string = JSON.stringify(component[property]);
-        if (property === "colorants") {
+        if (["colorants"].includes(property)) {
           string = string.replace(/,/g, ", ");
         }
 
