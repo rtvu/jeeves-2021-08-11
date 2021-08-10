@@ -4,6 +4,7 @@ import ColorantDefinitions from "./ColorantDefinitions";
 import Content from "./Content";
 import { Context } from "./Context";
 import Help from "./Help";
+import * as TabKeys from "./TabKeys";
 
 import { defaultCarriageJson } from "./Carriage/CarriageCommon";
 import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
@@ -25,6 +26,8 @@ const App = () => {
 
   const colorsetJsonHook = useState(defaultColorsetJson());
   const [colorsetJson, _setColorsetJson] = colorsetJsonHook;
+
+  const activeTabKeyHook = useState(TabKeys.getDefaultState());
 
   useEffect(() => {
     const parsed = JSON.parse(colorsetJson);
@@ -58,6 +61,7 @@ const App = () => {
 
   return (
     <Context
+      activeTabKeyHook={activeTabKeyHook}
       carriageJsonHook={carriageJsonHook}
       colorantToCarriageHook={colorantToCarriageHook}
       colorantToColorHook={colorantToColorHook}

@@ -1,42 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
+import { ActiveTabKeyContext } from "./Context";
 import CarriageContent from "./Carriage/CarriageContent";
 import ColorsetContent from "./Colorset/ColorsetContent";
 import MasksetContent from "./Maskset/MasksetContent";
+import * as TabKeys from "./TabKeys";
 
-const tabKeys = {
-  carriage: "carriage",
-  colors: "colors",
-  maskset: "maskset",
-};
+const tabKeyStates = TabKeys.getStates();
+const tabKeyActions = TabKeys.getActions();
 
 const Content = () => {
-  const [activeKey, setActiveKey] = useState(tabKeys.carriage);
+  const [activeTabKey, setActiveTabKey] = useContext(ActiveTabKeyContext);
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (event.ctrlKey && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
-        setActiveKey((activeKey) => {
-          if (activeKey === tabKeys.carriage && event.key === "ArrowRight") {
-            return tabKeys.maskset;
-          }
-
-          if (activeKey === tabKeys.maskset && event.key === "ArrowRight") {
-            return tabKeys.colors;
-          }
-
-          if (activeKey === tabKeys.maskset && event.key === "ArrowLeft") {
-            return tabKeys.carriage;
-          }
-
-          if (activeKey === tabKeys.colors && event.key === "ArrowLeft") {
-            return tabKeys.maskset;
-          }
-
-          return activeKey;
+      if (event.ctrlKey && Object.values(tabKeyActions).includes(event.key)) {
+        setActiveTabKey((activeTabKey) => {
+          return TabKeys.transition(activeTabKey, event.key);
         });
       }
     };
@@ -46,17 +29,17 @@ const Content = () => {
     return () => {
       window.removeEventListener("keydown", keydownHandler);
     };
-  }, []);
+  }, [setActiveTabKey]);
 
   return (
-    <Tabs id="content" activeKey={activeKey} onSelect={setActiveKey}>
-      <Tab eventKey={tabKeys.carriage} title="Carriage">
+    <Tabs id="content" activeKey={activeTabKey} onSelect={setActiveTabKey}>
+      <Tab eventKey={tabKeyStates.carriage} title="Carriage">
         <CarriageContent />
       </Tab>
-      <Tab eventKey={tabKeys.maskset} title="Maskset">
+      <Tab eventKey={tabKeyStates.maskset} title="Maskset">
         <MasksetContent />
       </Tab>
-      <Tab eventKey={tabKeys.colors} title="Colors">
+      <Tab eventKey={tabKeyStates.colorset} title="Colorset">
         <ColorsetContent />
       </Tab>
     </Tabs>
