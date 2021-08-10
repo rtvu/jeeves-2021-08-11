@@ -16,7 +16,14 @@ const MasksetContent = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (activeTabKey === tabKeyStates.maskset && event.ctrlKey && event.key === " ") {
+      if (
+        activeTabKey === tabKeyStates.maskset &&
+        !event.altKey &&
+        event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        event.key === " "
+      ) {
         setShowConsole((showConsole) => !showConsole);
       }
     };

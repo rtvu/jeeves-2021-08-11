@@ -17,7 +17,13 @@ const Content = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (event.ctrlKey && Object.values(tabKeyActions).includes(event.key)) {
+      if (
+        !event.altKey &&
+        event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        Object.values(tabKeyActions).includes(event.key)
+      ) {
         setActiveTabKey((activeTabKey) => {
           return TabKeys.transition(activeTabKey, event.key);
         });

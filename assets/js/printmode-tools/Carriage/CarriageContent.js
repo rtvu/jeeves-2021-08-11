@@ -17,7 +17,14 @@ const CarriageContent = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (activeTabKey === tabKeyStates.carriage && event.ctrlKey && event.key === " ") {
+      if (
+        activeTabKey === tabKeyStates.carriage &&
+        !event.altKey &&
+        event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        event.key === " "
+      ) {
         setShowConsole((showConsole) => !showConsole);
       }
     };

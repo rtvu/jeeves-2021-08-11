@@ -16,7 +16,14 @@ const ColorsetContent = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (activeTabKey === tabKeyStates.colorset && event.ctrlKey && event.key === " ") {
+      if (
+        activeTabKey === tabKeyStates.colorset &&
+        !event.altKey &&
+        event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        event.key === " "
+      ) {
         setShowConsole((showConsole) => !showConsole);
       }
     };

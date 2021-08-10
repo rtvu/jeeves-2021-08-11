@@ -16,7 +16,7 @@ const Help = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (event.ctrlKey && event.shiftKey && event.key === "?") {
+      if (!event.altKey && event.ctrlKey && !event.metaKey && event.shiftKey && event.key === "?") {
         setShowHelp(true);
       }
     };

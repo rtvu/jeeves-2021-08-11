@@ -36,7 +36,7 @@ const ColorantDefinitions = () => {
 
   useEffect(() => {
     const keydownHandler = (event) => {
-      if (event.ctrlKey && event.shiftKey && event.key === "Enter") {
+      if (!event.altKey && event.ctrlKey && !event.metaKey && event.shiftKey && event.key === "Enter") {
         setShowColorantsList(true);
       }
     };
