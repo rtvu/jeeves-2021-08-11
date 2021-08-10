@@ -7,7 +7,7 @@ const options = {
 };
 
 function updateHeight(element) {
-  if (element.style.height.includes("px")) {
+  if (element.scrollHeight > 0) {
     let height = parseInt(element.style.height);
 
     if (element.scrollHeight > height) {
@@ -25,11 +25,7 @@ function onVisible(entries) {
   const [entry] = entries;
 
   if (entry.isIntersecting) {
-    const element = entry.target;
-
-    if (element.style.height === "") {
-      element.style.height = element.scrollHeight + "px";
-    }
+    updateHeight(entry.target);
   }
 }
 
@@ -49,8 +45,8 @@ const ResizableTextarea = (props) => {
   }, [ref]);
 
   useEffect(() => {
-    updateHeight(ref.current);
-  }, [ref, props.value]);
+    ref.current.style.height = "0px";
+  }, [ref]);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -63,6 +59,10 @@ const ResizableTextarea = (props) => {
       window.removeEventListener("resize", resizeHandler);
     };
   }, [ref]);
+
+  useEffect(() => {
+    updateHeight(ref.current);
+  }, [ref, props.value]);
 
   const onChange = (event) => {
     updateHeight(event.target);
