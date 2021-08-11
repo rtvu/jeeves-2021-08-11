@@ -14,7 +14,7 @@ import ColorantTools from "../common/colorant-tools";
 import { useOnChange } from "../common/react-hooks";
 
 const App = () => {
-  const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
+  const colorantToColorHook = useState(ColorantTools.getDefaultColorantToColor());
   const [_colorantToColor, setColorantToColor] = colorantToColorHook;
 
   const colorantToCarriageHook = useState(null);
