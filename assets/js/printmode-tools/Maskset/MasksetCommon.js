@@ -42,43 +42,43 @@ const validationsProperties = [
   "offsetValid",
 ];
 
-function masksetVersions() {
+function getMasksetVersions() {
   return ["1.0"];
 }
 
-function inkLimits() {
-  return [3, 5, 6, 8, 9];
-}
-
-function defaultMasksetVersion() {
+function getDefaultMasksetVersion() {
   return "1.0";
 }
 
-function defaultInkLimit() {
+function getInkLimits() {
+  return [3, 5, 6, 8, 9];
+}
+
+function getDefaultInkLimit() {
   return 3;
 }
 
-function defaultMasksetJson() {
-  return `{"version":"${defaultMasksetVersion()}","title":"","components":[]}`;
+function getDefaultMasksetJson() {
+  return `{"version":"${getDefaultMasksetVersion()}","title":"","components":[]}`;
 }
 
-function defaultMaskset(idCounter = 0) {
+function getDefaultMaskset(idCounter = 0) {
   return {
     idCounter: idCounter,
     ids: [],
     components: {},
     title: "",
     valid: true,
-    version: defaultMasksetVersion(),
+    version: getDefaultMasksetVersion(),
   };
 }
 
-function defaultComponent() {
+function getDefaultComponent() {
   return {
     inputs: {
       display: "off",
       colorants: "",
-      inkLimit: defaultInkLimit().toString(),
+      inkLimit: getDefaultInkLimit().toString(),
       ramps: "off",
       specification: "",
       showInterleave: "off",
@@ -135,7 +135,7 @@ function updateComponent(maskset, id, input, value) {
 }
 
 function fromInputsToComponent(inputs = {}) {
-  const component = defaultComponent();
+  const component = getDefaultComponent();
   const source = {};
 
   for (let i = 0; i < inputsProperties.length; i++) {
@@ -268,7 +268,7 @@ function validateComponent(component, colorantToColor) {
   component.formattedInputs.colorants = colorants;
   component.validations.colorantsValid = colorantsValid;
 
-  const [inkLimit, inkLimitValid] = parseValidInteger(component.inputs.inkLimit, (i) => inkLimits().includes(i));
+  const [inkLimit, inkLimitValid] = parseValidInteger(component.inputs.inkLimit, (i) => getInkLimits().includes(i));
   component.formattedInputs.inkLimit = inkLimit;
   component.validations.inkLimitValid = inkLimitValid;
 
@@ -343,7 +343,7 @@ function isValidMasksetJson(masksetJson) {
     if (
       !(
         Object.prototype.hasOwnProperty.call(parsed, "version") &&
-        masksetVersions().includes(parsed.version) &&
+        getMasksetVersions().includes(parsed.version) &&
         Object.prototype.hasOwnProperty.call(parsed, "title") &&
         typeof parsed.title === "string" &&
         Object.prototype.hasOwnProperty.call(parsed, "components") &&
@@ -412,7 +412,7 @@ function toMaskset(masksetJson, colorantToColor, colorantToCarriage, idCounter =
 
     const parsed = JSON.parse(masksetJson);
 
-    const maskset = defaultMaskset(idCounter);
+    const maskset = getDefaultMaskset(idCounter);
 
     maskset.version = parsed.version;
     maskset.title = parsed.title;
@@ -494,12 +494,12 @@ function formatMasksetJson(masksetJson) {
 }
 
 export {
-  masksetVersions,
-  inkLimits,
-  defaultMasksetVersion,
-  defaultInkLimit,
-  defaultMasksetJson,
-  defaultMaskset,
+  getMasksetVersions,
+  getInkLimits,
+  getDefaultMasksetVersion,
+  getDefaultInkLimit,
+  getDefaultMasksetJson,
+  getDefaultMaskset,
   appendComponent,
   deleteComponent,
   updateComponent,

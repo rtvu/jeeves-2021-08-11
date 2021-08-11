@@ -15,7 +15,7 @@ const selectStyle = {
 };
 
 const VersionOptions = () => {
-  const values = Common.masksetVersions();
+  const values = Common.getMasksetVersions();
   const descriptions = values;
 
   return <Options values={values} descriptions={descriptions} />;
@@ -29,11 +29,11 @@ const OnOffOptions = () => {
 };
 
 const InkLimitsOptions = () => {
-  const values = Common.inkLimits().map((x) => {
+  const values = Common.getInkLimits().map((x) => {
     return x.toString();
   });
 
-  const descriptions = Common.inkLimits().map((x) => {
+  const descriptions = Common.getInkLimits().map((x) => {
     return x.toString() + "d";
   });
 
@@ -47,7 +47,7 @@ const MasksetForm = ({ consoleCheckbox }) => {
 
   const [masksetJson, setMasksetJson] = useContext(MasksetJsonContext);
 
-  const [maskset, setMaskset] = useState(Common.defaultMaskset());
+  const [maskset, setMaskset] = useState(Common.getDefaultMaskset());
 
   const setIds = (ids) => {
     setMaskset((maskset) => {

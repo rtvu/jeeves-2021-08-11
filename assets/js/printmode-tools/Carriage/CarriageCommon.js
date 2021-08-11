@@ -13,30 +13,30 @@ const validationsProperties = [
   "dieHeightsToOverlapsValid",
 ];
 
-function carriageVersions() {
+function getCarriageVersions() {
   return ["1.0"];
 }
 
-function defaultCarriageVersion() {
+function getDefaultCarriageVersion() {
   return "1.0";
 }
 
-function defaultCarriageJson() {
-  return `{"version":"${defaultCarriageVersion()}","title":"","components":[]}`;
+function getDefaultCarriageJson() {
+  return `{"version":"${getDefaultCarriageVersion()}","title":"","components":[]}`;
 }
 
-function defaultCarriage(idCounter = 0) {
+function getDefaultCarriage(idCounter = 0) {
   return {
     idCounter: idCounter,
     ids: [],
     components: {},
     title: "",
     valid: true,
-    version: defaultCarriageVersion(),
+    version: getDefaultCarriageVersion(),
   };
 }
 
-function defaultComponent() {
+function getDefaultComponent() {
   return {
     inputs: {
       colorant: "",
@@ -79,7 +79,7 @@ function updateComponent(carriage, id, input, value) {
 }
 
 function fromInputsToComponent(inputs = {}) {
-  const component = defaultComponent();
+  const component = getDefaultComponent();
   const source = {};
 
   for (let i = 0; i < inputsProperties.length; i++) {
@@ -246,7 +246,7 @@ function isValidCarriageJson(carriageJson) {
     if (
       !(
         Object.prototype.hasOwnProperty.call(parsed, "version") &&
-        carriageVersions().includes(parsed.version) &&
+        getCarriageVersions().includes(parsed.version) &&
         Object.prototype.hasOwnProperty.call(parsed, "title") &&
         typeof parsed.title === "string" &&
         Object.prototype.hasOwnProperty.call(parsed, "components") &&
@@ -305,7 +305,7 @@ function toCarriage(carriageJson, colorantToColor, idCounter = 0) {
 
     const parsed = JSON.parse(carriageJson);
 
-    const carriage = defaultCarriage(idCounter);
+    const carriage = getDefaultCarriage(idCounter);
 
     carriage.version = parsed.version;
     carriage.title = parsed.title;
@@ -371,10 +371,10 @@ function formatCarriageJson(carriageJson) {
 }
 
 export {
-  carriageVersions,
-  defaultCarriageVersion,
-  defaultCarriageJson,
-  defaultCarriage,
+  getCarriageVersions,
+  getDefaultCarriageVersion,
+  getDefaultCarriageJson,
+  getDefaultCarriage,
   appendComponent,
   deleteComponent,
   updateComponent,

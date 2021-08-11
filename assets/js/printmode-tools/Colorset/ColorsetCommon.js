@@ -1,32 +1,34 @@
+import { formatHexColorCode } from "../../common/utilities";
+
 const inputsProperties = ["color", "colorants"];
 
 const formattedInputsProperties = ["color", "colorants"];
 
 const validationsProperties = ["colorValid", "colorUnique", "colorantsValid", "colorantsUnique"];
 
-function colorsetVersions() {
+function getColorsetVersions() {
   return ["1.0"];
 }
 
-function defaultColorsetVersion() {
+function getDefaultColorsetVersion() {
   return "1.0";
 }
 
-function defaultColorsetJson() {
-  return `{"version":"${defaultColorsetVersion()}","components":[]}`;
+function getDefaultColorsetJson() {
+  return `{"version":"${getDefaultColorsetVersion()}","components":[]}`;
 }
 
-function defaultColorset(idCounter = 0) {
+function getDefaultColorset(idCounter = 0) {
   return {
     idCounter: idCounter,
     ids: [],
     components: {},
     valid: true,
-    version: defaultColorsetVersion(),
+    version: getDefaultColorsetVersion(),
   };
 }
 
-function defaultComponent() {
+function getDefaultComponent() {
   return {
     inputs: {
       color: "#ffffff",
@@ -63,7 +65,7 @@ function updateComponent(colorset, id, input, value) {
 }
 
 function fromInputsToComponent(inputs = {}) {
-  const component = defaultComponent();
+  const component = getDefaultComponent();
   const source = {};
 
   for (let i = 0; i < inputsProperties.length; i++) {
@@ -80,13 +82,9 @@ function fromInputsToComponent(inputs = {}) {
 }
 
 function parseColor(string) {
-  string = string.trim();
+  const result = formatHexColorCode(string);
 
-  if (/^#[0-9A-F]{6}$/i.test(string)) {
-    return [string, true];
-  } else {
-    return [null, false];
-  }
+  return [result, result !== null];
 }
 
 function isValidColorant(string) {
@@ -201,7 +199,7 @@ function isValidColorsetJson(colorsetJson) {
     if (
       !(
         Object.prototype.hasOwnProperty.call(parsed, "version") &&
-        colorsetVersions().includes(parsed.version) &&
+        getColorsetVersions().includes(parsed.version) &&
         Object.prototype.hasOwnProperty.call(parsed, "components") &&
         Array.isArray(parsed.components)
       )
@@ -250,7 +248,7 @@ function toColorset(colorsetJson, idCounter = 0) {
 
     const parsed = JSON.parse(colorsetJson);
 
-    const colorset = defaultColorset(idCounter);
+    const colorset = getDefaultColorset(idCounter);
 
     colorset.version = parsed.version;
 
@@ -312,10 +310,10 @@ function formatColorsetJson(colorsetJson) {
 }
 
 export {
-  colorsetVersions,
-  defaultColorsetVersion,
-  defaultColorsetJson,
-  defaultColorset,
+  getColorsetVersions,
+  getDefaultColorsetVersion,
+  getDefaultColorsetJson,
+  getDefaultColorset,
   appendComponent,
   deleteComponent,
   updateComponent,

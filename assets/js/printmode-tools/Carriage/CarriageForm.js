@@ -14,7 +14,7 @@ const selectStyle = {
 };
 
 const VersionOptions = () => {
-  const values = Common.carriageVersions();
+  const values = Common.getCarriageVersions();
   const descriptions = values;
 
   return <Options values={values} descriptions={descriptions} />;
@@ -25,7 +25,7 @@ const CarriageForm = ({ consoleCheckbox }) => {
 
   const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
-  const [carriage, setCarriage] = useState(Common.defaultCarriage());
+  const [carriage, setCarriage] = useState(Common.getDefaultCarriage());
 
   const setIds = (ids) => {
     setCarriage((carriage) => {

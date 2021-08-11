@@ -14,7 +14,7 @@ const selectStyle = {
 };
 
 const VersionOptions = () => {
-  const values = Common.colorsetVersions();
+  const values = Common.getColorsetVersions();
   const descriptions = values;
 
   return <Options values={values} descriptions={descriptions} />;
@@ -23,7 +23,7 @@ const VersionOptions = () => {
 const ColorsetForm = ({ consoleCheckbox }) => {
   const [colorsetJson, setColorsetJson] = useContext(ColorsetJsonContext);
 
-  const [colorset, setColorset] = useState(Common.defaultColorset());
+  const [colorset, setColorset] = useState(Common.getDefaultColorset());
 
   const setIds = (ids) => {
     setColorset((colorset) => {

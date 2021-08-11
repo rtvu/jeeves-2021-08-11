@@ -6,9 +6,9 @@ import { Context } from "./Context";
 import Help from "./Help";
 import * as TabKeys from "./TabKeys";
 
-import { defaultCarriageJson } from "./Carriage/CarriageCommon";
-import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
-import { defaultMasksetJson } from "./Maskset/MasksetCommon";
+import { getDefaultCarriageJson } from "./Carriage/CarriageCommon";
+import { getDefaultColorsetJson } from "./Colorset/ColorsetCommon";
+import { getDefaultMasksetJson } from "./Maskset/MasksetCommon";
 
 import ColorantTools from "../common/colorant-tools";
 import { useOnChange } from "../common/react-hooks";
@@ -20,12 +20,12 @@ const App = () => {
   const colorantToCarriageHook = useState(null);
   const [_colorantToCarriage, setColorantToCarriage] = colorantToCarriageHook;
 
-  const carriageJsonHook = useState(defaultCarriageJson());
+  const carriageJsonHook = useState(getDefaultCarriageJson());
   const [carriageJson, _setCarriageJson] = carriageJsonHook;
 
-  const masksetJsonHook = useState(defaultMasksetJson());
+  const masksetJsonHook = useState(getDefaultMasksetJson());
 
-  const colorsetJsonHook = useState(defaultColorsetJson());
+  const colorsetJsonHook = useState(getDefaultColorsetJson());
   const [colorsetJson, _setColorsetJson] = colorsetJsonHook;
 
   const activeTabKeyHook = useState(TabKeys.getDefaultState());
