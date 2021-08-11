@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import ColorantDefinitions from "./ColorantDefinitions";
 import Content from "./Content";
@@ -11,6 +11,7 @@ import { defaultColorsetJson } from "./Colorset/ColorsetCommon";
 import { defaultMasksetJson } from "./Maskset/MasksetCommon";
 
 import ColorantTools from "../common/colorant-tools";
+import { useOnChange } from "../common/react-hooks";
 
 const App = () => {
   const colorantToColorHook = useState(ColorantTools.defaultColorantToColor);
@@ -29,7 +30,7 @@ const App = () => {
 
   const activeTabKeyHook = useState(TabKeys.getDefaultState());
 
-  useEffect(() => {
+  useOnChange(() => {
     const parsed = JSON.parse(colorsetJson);
     const customColorToColorants = {};
 
@@ -44,9 +45,9 @@ const App = () => {
     const newColorantToColor = ColorantTools.mergeCustomColorantToColor(customColorantToColor);
 
     setColorantToColor(newColorantToColor);
-  }, [colorsetJson, setColorantToColor]);
+  }, colorsetJson);
 
-  useEffect(() => {
+  useOnChange(() => {
     const parsed = JSON.parse(carriageJson);
     const newColorantToCarriage = {};
 
@@ -57,7 +58,7 @@ const App = () => {
     }
 
     setColorantToCarriage(newColorantToCarriage);
-  }, [carriageJson, setColorantToCarriage]);
+  }, carriageJson);
 
   return (
     <Context

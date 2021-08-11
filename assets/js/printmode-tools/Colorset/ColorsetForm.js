@@ -5,6 +5,7 @@ import * as Common from "./ColorsetCommon";
 
 import { ColorsetJsonContext } from "../Context";
 import Options from "../../common/react-components/Options";
+import { useOnChange } from "../../common/react-hooks";
 import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
@@ -38,11 +39,7 @@ const ColorsetForm = ({ consoleCheckbox }) => {
     setColorsetJson(newColorsetJson);
   };
 
-  const [referenceColorsetJson, setReferenceColorsetJson] = useState(null);
-
-  if (referenceColorsetJson !== colorsetJson) {
-    setReferenceColorsetJson(colorsetJson);
-
+  useOnChange(() => {
     setColorset((colorset) => {
       const idCounter = colorset.idCounter;
 
@@ -50,7 +47,7 @@ const ColorsetForm = ({ consoleCheckbox }) => {
 
       return colorset;
     });
-  }
+  }, colorsetJson);
 
   const appendComponent = () => {
     setColorset((colorset) => {

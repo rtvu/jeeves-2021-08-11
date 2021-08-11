@@ -5,6 +5,7 @@ import * as Common from "./CarriageCommon";
 
 import { CarriageJsonContext, ColorantToColorContext } from "../Context";
 import Options from "../../common/react-components/Options";
+import { useOnChange } from "../../common/react-hooks";
 import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
@@ -30,6 +31,7 @@ const CarriageForm = ({ consoleCheckbox }) => {
     setCarriage((carriage) => {
       carriage = copyByJSON(carriage);
       carriage.ids = copyByJSON(ids);
+
       return carriage;
     });
   };
@@ -40,11 +42,7 @@ const CarriageForm = ({ consoleCheckbox }) => {
     setCarriageJson(newCarriageJson);
   };
 
-  const [referenceCarriageJson, setReferenceCarriageJson] = useState(null);
-
-  if (referenceCarriageJson !== carriageJson) {
-    setReferenceCarriageJson(carriageJson);
-
+  useOnChange(() => {
     setCarriage((carriage) => {
       const idCounter = carriage.idCounter;
 
@@ -52,7 +50,7 @@ const CarriageForm = ({ consoleCheckbox }) => {
 
       return carriage;
     });
-  }
+  }, carriageJson);
 
   const appendComponent = () => {
     setCarriage((carriage) => {

@@ -5,6 +5,7 @@ import { ColorantToColorContext } from "./Context";
 
 import ColorantTools from "../common/colorant-tools";
 import ResizableTextarea from "../common/react-components/ResizableTextarea";
+import { useOnChange } from "../common/react-hooks";
 
 function toRegex(pattern, flags) {
   try {
@@ -19,7 +20,7 @@ const ColorantDefinitions = () => {
 
   const [colorToColorants, setColorToColorants] = useState([]);
 
-  useEffect(() => {
+  useOnChange(() => {
     const source = ColorantTools.invertColorantToColor(colorantToColor);
     const newColorToColorants = [];
 
@@ -30,7 +31,7 @@ const ColorantDefinitions = () => {
     }
 
     setColorToColorants(newColorToColorants);
-  }, [colorantToColor]);
+  }, colorantToColor);
 
   const [showColorantsList, setShowColorantsList] = useState(false);
 

@@ -4,23 +4,20 @@ import * as Common from "./CarriageCommon";
 
 import { CarriageJsonContext, ColorantToColorContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+import { useOnChange } from "../../common/react-hooks";
 
 const CarriageConsole = () => {
   const [carriageJson, setCarriageJson] = useContext(CarriageJsonContext);
 
   const [colorantToColor, _setColorantToColor] = useContext(ColorantToColorContext);
 
-  const [referenceCarriageJson, setReferenceCarriageJson] = useState(null);
-
   const [console, setConsole] = useState("");
 
-  if (referenceCarriageJson !== carriageJson) {
-    setReferenceCarriageJson(carriageJson);
-
+  useOnChange(() => {
     const newConsole = Common.formatCarriageJson(carriageJson);
 
     setConsole(newConsole);
-  }
+  }, carriageJson);
 
   const updateConsole = (event) => {
     const newConsole = event.target.value;

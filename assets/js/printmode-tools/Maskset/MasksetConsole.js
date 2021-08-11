@@ -4,6 +4,7 @@ import * as Common from "./MasksetCommon";
 
 import { ColorantToCarriageContext, ColorantToColorContext, MasksetJsonContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+import { useOnChange } from "../../common/react-hooks";
 
 const MasksetConsole = () => {
   const [colorantToCarriage, _setColorantToCarriage] = useContext(ColorantToCarriageContext);
@@ -14,15 +15,11 @@ const MasksetConsole = () => {
 
   const [console, setConsole] = useState("");
 
-  const [referenceMasksetJson, setReferenceMasksetJson] = useState(null);
-
-  if (referenceMasksetJson !== masksetJson) {
-    setReferenceMasksetJson(masksetJson);
-
+  useOnChange(() => {
     const newConsole = Common.formatMasksetJson(masksetJson);
 
     setConsole(newConsole);
-  }
+  }, masksetJson);
 
   const updateConsole = (event) => {
     const newConsole = event.target.value;

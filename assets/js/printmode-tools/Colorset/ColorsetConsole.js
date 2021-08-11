@@ -4,21 +4,18 @@ import * as Common from "./ColorsetCommon";
 
 import { ColorsetJsonContext } from "../Context";
 import ResizableTextarea from "../../common/react-components/ResizableTextarea";
+import { useOnChange } from "../../common/react-hooks";
 
 const ColorsetConsole = () => {
   const [colorsetJson, setColorsetJson] = useContext(ColorsetJsonContext);
 
-  const [referenceColorsetJson, setReferenceColorsetJson] = useState(null);
-
   const [console, setConsole] = useState("");
 
-  if (referenceColorsetJson !== colorsetJson) {
-    setReferenceColorsetJson(colorsetJson);
-
+  useOnChange(() => {
     const newConsole = Common.formatColorsetJson(colorsetJson);
 
     setConsole(newConsole);
-  }
+  }, colorsetJson);
 
   const updateConsole = (event) => {
     const newConsole = event.target.value;

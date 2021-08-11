@@ -6,6 +6,7 @@ import * as Common from "./MasksetCommon";
 
 import { ColorantToCarriageContext, ColorantToColorContext, MasksetJsonContext } from "../Context";
 import Options from "../../common/react-components/Options";
+import { useOnChange } from "../../common/react-hooks";
 import { copyByJSON } from "../../common/utilities";
 
 const selectStyle = {
@@ -63,11 +64,7 @@ const MasksetForm = ({ consoleCheckbox }) => {
     setMasksetJson(newMasksetJson);
   };
 
-  const [referenceMasksetJson, setReferenceMasksetJson] = useState(null);
-
-  if (referenceMasksetJson !== masksetJson) {
-    setReferenceMasksetJson(masksetJson);
-
+  useOnChange(() => {
     setMaskset((maskset) => {
       const idCounter = maskset.idCounter;
 
@@ -75,7 +72,7 @@ const MasksetForm = ({ consoleCheckbox }) => {
 
       return maskset;
     });
-  }
+  }, masksetJson);
 
   const appendComponent = () => {
     setMaskset((maskset) => {
